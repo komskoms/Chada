@@ -1,0 +1,72 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/include",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/variants/microduino_32u4",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit BusIO",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit GFX Library",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit ILI9341",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit STMPE610",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit TouchScreen",
+                "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/HX711_ADC/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/include",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/variants/microduino_32u4",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit BusIO",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit GFX Library",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit ILI9341",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit STMPE610",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/Adafruit TouchScreen",
+                    "/Users/eeun/Documents/OhJiHwan_CAN_OBD/Arduino/.pio/libdeps/32u416m/HX711_ADC/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=50204",
+                "ARDUINO_AVR_MICRODUINO_CORE_USB",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "USB_VID=0x2341",
+                "USB_PID=0x8036",
+                "USB_PRODUCT=\"32u416m\"",
+                "USB_MANUFACTURER=\"Microduino\"",
+                "__AVR_ATmega32U4__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/Users/eeun/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega32u4",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}

@@ -10,8 +10,11 @@
             "includePath": [
                 "/Users/eeun/Documents/can-obd/Arduino/include",
                 "/Users/eeun/Documents/can-obd/Arduino/src",
+                "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/OBD2/src",
+                "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/CAN/src",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/variants/microduino_32u4",
+                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit BusIO",
                 "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit GFX Library",
                 "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit ILI9341",
@@ -20,7 +23,6 @@
                 "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/HX711_ADC/src",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                 "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 ""
@@ -30,8 +32,11 @@
                 "path": [
                     "/Users/eeun/Documents/can-obd/Arduino/include",
                     "/Users/eeun/Documents/can-obd/Arduino/src",
+                    "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/OBD2/src",
+                    "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/CAN/src",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/variants/microduino_32u4",
+                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit BusIO",
                     "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit GFX Library",
                     "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/Adafruit ILI9341",
@@ -40,7 +45,6 @@
                     "/Users/eeun/Documents/can-obd/Arduino/.pio/libdeps/32u416m/HX711_ADC/src",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                    "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                     "/Users/eeun/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     ""
@@ -61,7 +65,7 @@
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "/Users/kimjaehwan/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerPath": "/Users/eeun/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
             "compilerArgs": [
                 "-mmcu=atmega32u4",
                 ""

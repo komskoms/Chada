@@ -10,12 +10,13 @@
             "includePath": [
                 "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/include",
                 "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/src",
+                "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/Ethernet/src",
+                "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/mcp_can",
+                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/variants/leonardo",
-                "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/mcp_can",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                 "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 ""
@@ -25,12 +26,13 @@
                 "path": [
                     "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/include",
                     "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/src",
+                    "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/Ethernet/src",
+                    "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/mcp_can",
+                    "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/variants/leonardo",
-                    "/Users/kimjaehwan/42seoul_code/iot/project/can_obd/Arduino/.pio/libdeps/leonardo/mcp_can",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                    "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                     "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     ""

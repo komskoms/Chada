@@ -12,7 +12,6 @@ void setup()
 
 void loop()
 {
-	int	index = 0;
 	val = digitalRead(inPin);  // read the input pin
 	digitalWrite(ledPin, val); // sets the LED to the button's value
 }

@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <SPI.h>
 #include "mcp_can.h"
 
@@ -19,7 +20,6 @@ MCP_CAN CAN(SPI_CS_PIN);                                    // Set CS pin
 #define PID_ENGIN_PRM       0x0C
 #define PID_VEHICLE_SPEED   0x0D
 #define PID_COOLANT_TEMP    0x05
-
 #define CAN_ID_PID          0x7DF
 
 void set_mask_filt()
@@ -82,18 +82,18 @@ void setup() {
         delay(1000);
     }
     Serial.println("CAN init ok!");
-    set_mask_filt();
+    //set_mask_filt();
 }
 
 void loop() {
+    // int __speed = 0;
+    // int ret = getSpeed(&__speed);
 
-    int __speed = 0;
-    int ret = getSpeed(&__speed);
-    if(ret)
-    {
-        Serial.print("Vehicle Speed: ");
-        Serial.print(__speed);
-        Serial.println(" kmh");
-    }
-    delay(500);
+    // if(ret)
+    // {
+    //     Serial.print("Vehicle Speed: ");
+    //     Serial.print(__speed);
+    //     Serial.println(" kmh");
+    // }
+    // delay(500);
 }

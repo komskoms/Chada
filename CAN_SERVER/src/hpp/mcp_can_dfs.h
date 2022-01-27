@@ -52,7 +52,6 @@
 #include <SPI.h>
 #include <inttypes.h>
 
-
 // if print debug information
 #define DEBUG_EN        1
 

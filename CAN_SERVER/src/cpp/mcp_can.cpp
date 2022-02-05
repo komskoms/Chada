@@ -45,7 +45,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
-#include "../hpp/mcp_can.h"
+#include "../hpp/mcp_can.hpp"
 
 #define spi_readwrite      pSPI->transfer
 #define spi_read()         spi_readwrite(0x00)
@@ -1124,7 +1124,6 @@ byte MCP_CAN::sendMsgBuf(unsigned long id, byte ext, byte len, const byte *buf, 
 {
     return sendMsg(id,ext,0,len,buf,wait_sent);
 }
-
 
 /*********************************************************************************************************
 ** Function name:           readMsgBuf

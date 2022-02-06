@@ -18,8 +18,10 @@ bool getEngineRPM(int *s) {
 			CAN.readMsgBuf(&len, buf);
 			// 0x40 + 1(mode)
 			if (buf[1] == 0x41) {
-				rpm = buf[2] * 16 * 16;
-				rpm += buf[3];
+				Serial.println(buf[3]);
+				Serial.println(buf[4]);
+				rpm = buf[3] * 16 * 16;
+				rpm += buf[4];
 				*s = rpm / 4;
 				return 1;
 			}
@@ -44,8 +46,9 @@ bool getCoolantTemperature(int *s) {
 		if (CAN_MSGAVAIL == CAN.checkReceive()) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
-				temp = temp - 40;
-				*s = temp / 4;
+				Serial.println(buf[3]);
+				temp = buf[3] - 40;
+				*s = temp;
 				return 1;
 			}
 		}
@@ -69,7 +72,8 @@ bool getEngineLoad(int *s) {
 		if (CAN_MSGAVAIL == CAN.checkReceive()) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
-				load = (buf[2] / 255) * 100;
+				Serial.println(buf[3]);
+				load = (buf[3] / 255.0) * 100.0;
 				*s = load;
 				return 1;
 			}
@@ -94,7 +98,8 @@ bool getFuelLevel(int *s) {
 		if (CAN_MSGAVAIL == CAN.checkReceive()) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
-				fuel = (buf[2] / 255) * 100;
+				Serial.println(buf[3]);
+				fuel = (buf[3] / 255.0) * 100.0;
 				*s = fuel;
 				return 1;
 			}
@@ -118,6 +123,7 @@ bool getSpeed(int *s) {
 		if (CAN_MSGAVAIL == CAN.checkReceive()) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
+				Serial.println(buf[3]);
 				*s = buf[3];
 				return 1;
 			}
@@ -142,7 +148,9 @@ bool getBattery(int *s) {
 		if (CAN_MSGAVAIL == CAN.checkReceive()) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
-				battery = (256 * buf[3] + buf[4]) / 1000;
+				Serial.println(buf[3]);
+				Serial.println(buf[4]);
+				battery = (256 * buf[3] + buf[4]) / 1000.0;
 				*s = battery;
 				return 1;
 			}

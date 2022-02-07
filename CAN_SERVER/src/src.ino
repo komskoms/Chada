@@ -6,6 +6,7 @@
 *******************************************************************************************/
 void setup() {
 	SerialInit();
+	BluetoothInit();
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
@@ -23,6 +24,9 @@ void loop() {
 		Serial.print("Vehicle Speed: ");
 		Serial.print(speed);
 		Serial.println(" kmh");
+		BLUE_HC06.print("Vehicle Speed: ");
+		BLUE_HC06.print(speed);
+		BLUE_HC06.println(" kmh");
 	}
 	// test
 	getEngineRPM(&speed);

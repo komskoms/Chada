@@ -16,15 +16,9 @@ void SerialInit() {
 ** Function Name : BluetoothInit
 ** Description	 : Bluetooth App monitor init
 *******************************************************************************************/
-void BluetoothInit() {
-	BLUE_HC06.begin(BLUETOOTH_SPEED);
-	while (!BLUE_HC06)
-		delay(1000);
-	BLUE_HC06.println("Bluetooth Init ok!");
-	BLUE_HC06.println("--------------------------------");
-	Serial.println("Bluetooth Init ok!");
-	Serial.println("--------------------------------");
-}
+//void BluetoothInit() {
+//	HC06.begin(BLUETOOTH_SPEED);
+//}
 
 /******************************************************************************************
 ** Function Name : CANInit

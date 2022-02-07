@@ -3,20 +3,19 @@
 
 #include <Arduino.h>
 #include <SPI.h>
+#include <SoftwareSerial.h>
 #include "hpp/mcp_can.hpp"
 #include "hpp/OBDPower.hpp"
 #include "hpp/OBD_pid.hpp"
-#include <SoftwareSerial.h>
 
-#define SERIAL_SPEED		115200
-#define BLUETOOTH_SPEED     115200
+#define SERIAL_SPEED		9600
+#define BLUETOOTH_SPEED     9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
-#define BLUETOOTH_RX        10
-#define BLUETOOTH_TX        11
+#define HC06_RX             10
+#define HC06_TX             11
 
-SoftwareSerial BLUE_HC06(BLUETOOTH_RX, BLUETOOTH_TX);
-
+static SoftwareSerial HC06(HC06_RX, HC06_TX);
 static MCP_CAN CAN(SPI_CS_PIN);
 static OBDPower obd(A3);
 

@@ -1,15 +1,21 @@
 #include "hpp/header.hpp"
+//#include <SoftwareSerial.h>
 
+// #define HC06_RX             10
+// #define HC06_TX             11
+
+// SoftwareSerial HC06(HC06_RX, HC06_TX);
 /******************************************************************************************
 ** Function Name : setup
 ** Description	 : call me when the program starts
 *******************************************************************************************/
 void setup() {
 	SerialInit();
-	BluetoothInit();
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
+	//BluetoothInit();
+	HC06.begin(9600);
 }
 
 /******************************************************************************************
@@ -24,17 +30,16 @@ void loop() {
 		Serial.print("Vehicle Speed: ");
 		Serial.print(speed);
 		Serial.println(" kmh");
-		BLUE_HC06.print("Vehicle Speed: ");
-		BLUE_HC06.print(speed);
-		BLUE_HC06.println(" kmh");
 	}
 	// test
+	// HC06.println("connect");
+	Serial.println("connected");
 	getEngineRPM(&speed);
-	getCoolantTemperature(&speed);
-	getEngineLoad(&speed);
-	getFuelLevel(&speed);
-	getSpeed(&speed);
-	getBattery(&speed);
+	// getCoolantTemperature(&speed);
+	// getEngineLoad(&speed);
+	// getFuelLevel(&speed);
+	// getSpeed(&speed);
+	// getBattery(&speed);
 
 	delay(500);
 }

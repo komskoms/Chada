@@ -23,7 +23,6 @@ static OBDPower obd(A3);
 ** init.cpp
 */
 void SerialInit();
-void BluetoothInit();
 void CANInit();
 void setMaskFilt();
 

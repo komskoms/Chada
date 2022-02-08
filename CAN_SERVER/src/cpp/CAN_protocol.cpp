@@ -16,10 +16,10 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid) {
+	HC06.begin(9600);
 	Serial.print(pid);
 	Serial.println(" Pid Timeout");
-	HC06.begin(9600);
-	HC06.println("connect");
+	HC06.println(pid);
 	HC06.println(" Pid Timeout");
 	return 0;
 }

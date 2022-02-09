@@ -6,13 +6,20 @@
 #include "mcp_can.hpp"
 #include "OBDPower.hpp"
 #include "OBD_pid.hpp"
+#include <SoftwareSerial.h>
+
 // c++ 관련 헤더
 #include "ArduinoSTL.h"
 
-#define SERIAL_SPEED		115200
+#define SERIAL_SPEED		9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
 
+// bluetooth rx, tx 선
+const static int rxPin = 10;
+const static int txPin = 11;
+ 
+static SoftwareSerial HC06(rxPin, txPin);
 static MCP_CAN CAN(SPI_CS_PIN);
 static OBDPower obd(A3);
 

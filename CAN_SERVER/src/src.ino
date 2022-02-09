@@ -1,4 +1,4 @@
-#include "header.hpp"
+#include "../hpp/header.hpp"
 
 /******************************************************************************************
 ** Function Name : setup
@@ -10,6 +10,7 @@ void setup() {
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
+	HC06.begin(9600);
 }
 
 /******************************************************************************************
@@ -20,42 +21,42 @@ void loop() {
 	// test
 	int speed = 0;
 	int ret;
-	
+
 	ret = getEngineRPM(&speed);
 	if(ret) {
 		Serial.print("Engine RPM : ");
 		Serial.println(speed);
 	}
 
-	ret = getCoolantTemperature(&speed);
-	if(ret) {
-		Serial.print("Coolant Temperature : ");
-		Serial.println(speed);
-	}
+	// ret = getCoolantTemperature(&speed);
+	// if(ret) {
+	// 	Serial.print("Coolant Temperature : ");
+	// 	Serial.println(speed);
+	// }
 
-	ret = getEngineLoad(&speed);
-	if(ret) {
-		Serial.print("Engine Load : ");
-		Serial.println(speed);
-	}
+	// ret = getEngineLoad(&speed);
+	// if(ret) {
+	// 	Serial.print("Engine Load : ");
+	// 	Serial.println(speed);
+	// }
 
-	ret = getFuelLevel(&speed);
-	if(ret) {
-		Serial.print("Fuel Level : ");
-		Serial.println(speed);
-	}
+	// ret = getFuelLevel(&speed);
+	// if(ret) {
+	// 	Serial.print("Fuel Level : ");
+	// 	Serial.println(speed);
+	// }
 
-	ret = getSpeed(&speed);
-	if(ret) {
-		Serial.print("Speed : ");
-		Serial.println(speed);
-	}
+	// ret = getSpeed(&speed);
+	// if(ret) {
+	// 	Serial.print("Speed : ");
+	// 	Serial.println(speed);
+	// }
 
-	ret = getBattery(&speed);
-	if(ret) {
-		Serial.print("Battery : ");
-		Serial.println(speed);
-	}
-	Serial.println("------------------------------------");
-	delay(5000);
+	// ret = getBattery(&speed);
+	// if(ret) {
+	// 	Serial.print("Battery : ");
+	// 	Serial.println(speed);
+	// }
+	// Serial.println("------------------------------------");
+	// delay(5000);
 }

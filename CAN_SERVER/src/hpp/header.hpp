@@ -12,11 +12,10 @@
 #include "ArduinoSTL.h"
 
 #define SERIAL_SPEED		9600
-#define BLUE_SPEED     9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
 
-// bluetooth rx, tx 선
+// bluetooth rx, tx
 const static int rxPin = 10;
 const static int txPin = 11;
  
@@ -33,6 +32,11 @@ void setMaskFilt();
 //void BluetoothInit();
 
 /*
+** send_info.cpp
+*/
+bool send_info(int car_data);
+
+/*
 ** get_info.cpp
 */
 bool getEngineRPM(int *s);
@@ -41,7 +45,6 @@ bool getEngineLoad(int *s);
 bool getFuelLevel(int *s);
 bool getSpeed(int *s);
 bool getBattery(int *s);
-
 
 /*
 ** CAN_protocol.cpp

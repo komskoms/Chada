@@ -1,4 +1,4 @@
-#include "../hpp/header.hpp"
+#include "hpp/header.hpp"
 
 /******************************************************************************************
 ** Function Name : setup
@@ -10,7 +10,7 @@ void setup() {
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
-	HC06.begin(9600);
+	HC06.begin(BLUE_SPEED);
 }
 
 /******************************************************************************************
@@ -22,11 +22,11 @@ void loop() {
 	int speed = 0;
 	int ret;
 
-	ret = getEngineRPM(&speed);
-	if(ret) {
-		Serial.print("Engine RPM : ");
-		Serial.println(speed);
-	}
+	// ret = getEngineRPM(&speed);
+	// if(ret) {
+	// 	Serial.print("Engine RPM : ");
+	// 	Serial.println(speed);
+	// }
 
 	// ret = getCoolantTemperature(&speed);
 	// if(ret) {
@@ -46,11 +46,11 @@ void loop() {
 	// 	Serial.println(speed);
 	// }
 
-	// ret = getSpeed(&speed);
-	// if(ret) {
-	// 	Serial.print("Speed : ");
-	// 	Serial.println(speed);
-	// }
+	ret = getSpeed(&speed);
+	if(ret) {
+		Serial.print("Speed : ");
+		Serial.println(speed);
+	}
 
 	// ret = getBattery(&speed);
 	// if(ret) {

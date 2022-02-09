@@ -1,4 +1,4 @@
-#include "../hpp/header.hpp"
+#include "header.hpp"
 
 //extern SoftwareSerial HC06;
 
@@ -16,7 +16,17 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid) {
-	HC06.begin(9600);
+	int		fd;
+	char	*name = "storage.txt";
+  
+  HC06.begin(9600);
+  SD.begin(4);
+
+  File myFile;
+  myFile = SD.open("storage.txt", FILE_WRITE);
+
+  myFile.print(pid);
+	myFile.println(" Pid Timeout");
 	Serial.print(pid);
 	Serial.println(" Pid Timeout");
 	HC06.println(pid);

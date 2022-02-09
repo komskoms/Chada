@@ -1,4 +1,4 @@
-#include "../hpp/header.hpp"
+#include "header.hpp"
 
 /******************************************************************************************
 ** Function Name : getEngineRPM
@@ -27,7 +27,7 @@ bool getEngineRPM(int *s) {
 			}
 		}
 	}
-	return printTimeout("Engine RPM");
+	return printTimeout((char *)"Engine RPM");
 }
 
 /******************************************************************************************
@@ -53,7 +53,7 @@ bool getCoolantTemperature(int *s) {
 			}
 		}
 	}
-	return printTimeout("Coolant Temperature");
+	return printTimeout((char *)"Coolant Temperature");
 }
 
 /******************************************************************************************
@@ -79,7 +79,7 @@ bool getEngineLoad(int *s) {
 			}
 		}
 	}
-	return printTimeout("Engine Load");
+	return printTimeout((char *)"Engine Load");
 }
 
 /******************************************************************************************
@@ -105,7 +105,7 @@ bool getFuelLevel(int *s) {
 			}
 		}
 	}
-	return printTimeout("Fuel level");
+	return printTimeout((char *)"Fuel level");
 }
 
 /******************************************************************************************
@@ -129,7 +129,7 @@ bool getSpeed(int *s) {
 			}
 		}
 	}
-	return printTimeout("Vehicle Speed");
+	return printTimeout((char *)"Vehicle Speed");
 }
 
 /******************************************************************************************
@@ -156,5 +156,5 @@ bool getBattery(int *s) {
 			}
 		}
 	}
-	return printTimeout("Battery");
+	return printTimeout((char *)"Battery");
 }

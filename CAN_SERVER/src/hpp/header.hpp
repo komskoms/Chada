@@ -6,6 +6,8 @@
 #include "mcp_can.hpp"
 #include "OBDPower.hpp"
 #include "OBD_pid.hpp"
+// c++ 관련 헤더
+#include "ArduinoSTL.h"
 
 #define SERIAL_SPEED		115200
 #define SPI_CS_PIN			9

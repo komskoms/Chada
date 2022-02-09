@@ -16,8 +16,7 @@ void setup() {
 ** Function Name : loop
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
-void loop() {	
-	// test
+void loop() {
 	int data = 0;
 
 	send_info(data);

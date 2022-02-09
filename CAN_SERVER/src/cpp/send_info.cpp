@@ -4,11 +4,14 @@
 ** Function Name : send_info
 ** Description	 : send car information to App and Serial monitor
 *******************************************************************************************/
-bool send_info(int car_data)
+bool send_info(int s)
 {
-	int	ret;
 	HC06.begin(SERIAL_SPEED);
+	int	ret;
+	int car_data;
 
+	car_data = s;
+	for ()
 	ret = getSpeed(&car_data);
 	if(ret) {
 		HC06.print("Speed : ");
@@ -16,8 +19,8 @@ bool send_info(int car_data)
 		Serial.print("Speed : ");
 		Serial.println(car_data);
 	}
-	
-	ret = getEngineRPM(car_data);
+
+	ret = getEngineRPM(&car_data);
 	if(ret) {
 		HC06.print("Engine RPM : ");
 		HC06.println(car_data);

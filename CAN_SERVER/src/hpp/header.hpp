@@ -34,7 +34,7 @@ void setMaskFilt();
 /*
 ** send_info.cpp
 */
-bool send_info(int car_data);
+bool send_info(int s);
 
 /*
 ** get_info.cpp

@@ -1,4 +1,4 @@
-#include "../hpp/OBDPower.hpp"
+#include "OBDPower.hpp"
 
 /*
 ** set POWER_PIN

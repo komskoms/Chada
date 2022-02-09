@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'homepage.dart';
+import 'HUDscreen.dart';
+import 'homeListView.dart';
 
 void main() => runApp(const MyApp());
 
@@ -44,7 +45,7 @@ class _buildBodyState extends State<_buildBody> {
         child: Center(
             child: Column(children: <Widget>[
       mainUpper(context),
-      Text('did i did it???'),
+      mainList(),
     ])));
   }
 }
@@ -67,8 +68,36 @@ Widget mainLeftside(BuildContext context) {
       Container(
         child: ElevatedButton(
           child: Icon(Icons.menu),
-          onPressed: () => ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Wha~~~~~T??"))),
+          onPressed: () => showMenu(
+              context: context,
+              position: RelativeRect.fromLTRB(50, 50, 50, 50),
+              items: [
+                PopupMenuItem<String>(
+                  child: Text("showSnackbar"),
+                  onTap: () {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text("Wha~~~~~T??")));
+                  },
+                ),
+                PopupMenuItem<String>(
+                  child: Text("HUDmode"),
+                  onTap: () {
+                    // Navigator.pop(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HUDdisplay()));
+                  },
+                ),
+                PopupMenuItem<String>(
+                  child: Text("Setting"),
+                  onTap: () {
+                    // Navigator.pop(context);
+                    Navigator.push<void>(context,
+                        MaterialPageRoute(builder: (context) => HUDdisplay()));
+                  },
+                ),
+              ]),
+          // onPressed: () => ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text("Wha~~~~~T??"))),
           style: ButtonStyle(
               minimumSize: MaterialStateProperty.all<Size>(Size(50, 60)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(

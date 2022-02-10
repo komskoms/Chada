@@ -45,7 +45,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
-#include "mcp_can.hpp"
+#include "../hpp/mcp_can.hpp"
 
 #define spi_readwrite      pSPI->transfer
 #define spi_read()         spi_readwrite(0x00)

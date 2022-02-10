@@ -36,11 +36,6 @@ void setMaskFilt();
 //void BluetoothInit();
 
 /*
-** send_info.cpp
-*/
-bool send_info(int s);
-
-/*
 ** get_info.cpp
 */
 bool getEngineRPM(int *s);
@@ -49,6 +44,27 @@ bool getEngineLoad(int *s);
 bool getFuelLevel(int *s);
 bool getSpeed(int *s);
 bool getBattery(int *s);
+
+/*
+** send_info_to_app.cpp
+*/
+bool send_info(int s);
+static bool (*getDataFp[])(int *) = {
+	getEngineRPM,
+	getCoolantTemperature,
+	getEngineLoad,
+	getFuelLevel,
+	getSpeed,
+	getBattery
+};
+static char *car_data_name[] = {
+	"Engine RPM",
+	"Coolant Temperature",
+	"Engine Load",
+	"Fuel Level",
+	"Speed",
+	"Battery"
+};
 
 /*
 ** CAN_protocol.cpp

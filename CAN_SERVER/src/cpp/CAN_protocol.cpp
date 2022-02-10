@@ -16,20 +16,10 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid) {
-	int		fd;
-	char	*name = "storage.txt";
-  
-  HC06.begin(9600);
-  SD.begin(4);
-
-  File myFile;
-  myFile = SD.open("storage.txt", FILE_WRITE);
-
-  myFile.print(pid);
-	myFile.println(" Pid Timeout");
+	HC06.begin(SERIAL_SPEED);
 	Serial.print(pid);
 	Serial.println(" Pid Timeout");
-	HC06.println(pid);
+	HC06.print(pid);
 	HC06.println(" Pid Timeout");
 	return 0;
 }

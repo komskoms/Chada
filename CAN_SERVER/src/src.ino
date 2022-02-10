@@ -9,7 +9,7 @@ void setup() {
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
-	HC06.begin(9600);
+	HC06.begin(SERIAL_SPEED);
 }
 
 /******************************************************************************************
@@ -17,23 +17,8 @@ void setup() {
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
 void loop() {
-  
-	int speed = 0;
-	int ret = getSpeed(&speed);
+	int data = 0;
 
-  
-  if(ret) {
-     Serial.print("Vehicle Speed: ");
-     Serial.print(speed);
-     Serial.println(" kmh");
-     }
-    // test
-    //getEngineRPM(&speed);
-    // getCoolantTemperature(&speed);
-    // getEngineLoad(&speed);
-    // getFuelLevel(&speed);
-  getSpeed(&speed);
-  // getBattery(&speed);
-
-  delay(500);
+	send_info(data);
+	delay(5000);
 }

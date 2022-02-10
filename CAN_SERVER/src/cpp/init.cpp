@@ -1,4 +1,4 @@
-#include "header.hpp"
+#include "../hpp/header.hpp"
 
 /******************************************************************************************
 ** Function Name : SerialInit
@@ -16,9 +16,9 @@ void SerialInit() {
 ** Function Name : BluetoothInit
 ** Description	 : Bluetooth App monitor init
 *******************************************************************************************/
-//void BluetoothInit() {
-//	HC06.begin(BLUETOOTH_SPEED);
-//}
+// void BluetoothInit() {
+// 	HC06.begin(BLUE_SPEED);
+// }
 
 /******************************************************************************************
 ** Function Name : CANInit

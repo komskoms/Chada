@@ -2,7 +2,7 @@
 
 /******************************************************************************************
 ** Function Name : send_info_to_app
-** Description	 : send car information to App and Serial monitor
+** Description	 : send car information to App(Bluetooth) and Serial monitor
 *******************************************************************************************/
 
 bool send_info(int s) {

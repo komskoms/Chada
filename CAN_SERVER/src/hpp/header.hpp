@@ -46,7 +46,7 @@ bool getSpeed(int *s);
 bool getBattery(int *s);
 
 /*
-** send_info_to_app.cpp
+** send_info.cpp
 */
 bool send_info(int s);
 static bool (*getDataFp[])(int *) = {

@@ -4,60 +4,42 @@
 ** Function Name : send_info
 ** Description	 : send car information to App and Serial monitor
 *******************************************************************************************/
+bool (*fp[6])(int *) = {
+	getEngineRPM,
+	getCoolantTemperature,
+	getEngineLoad,
+	getFuelLevel,
+	getSpeed,
+	getBattery
+};
+
+char *data_name[6] = {
+	"Engine RPM",
+	"Coolant Temperature",
+	"Engine Load",
+	"Fuel Level",
+	"Speed",
+	"Battery"
+};
+
 bool send_info(int s)
 {
 	HC06.begin(SERIAL_SPEED);
-	int	ret;
+	int ret;
 	int car_data;
 
-	car_data = s;
-	for ()
-	ret = getSpeed(&car_data);
-	if(ret) {
-		HC06.print("Speed : ");
-		HC06.println(car_data);
-		Serial.print("Speed : ");
-		Serial.println(car_data);
-	}
+	for (int i = 0; i < sizeof(fp) / sizeof(fp[0]); i++) {
+		car_data = s;
 
-	ret = getEngineRPM(&car_data);
-	if(ret) {
-		HC06.print("Engine RPM : ");
-		HC06.println(car_data);
-		Serial.print("Engine RPM : ");
-		Serial.println(car_data);
-	}
-
-	ret = getCoolantTemperature(&car_data);
-	if(ret) {
-		HC06.print("Coolant Temperature : ");
-		HC06.println(car_data);
-		Serial.print("Coolant Temperature : ");
-		Serial.println(car_data);
-	}
-
-	ret = getEngineLoad(&car_data);
-	if(ret) {
-		HC06.print("Engine Load : ");
-		HC06.println(car_data);
-		Serial.print("Engine Load : ");
-		Serial.println(car_data);
-	}
-
-	ret = getFuelLevel(&car_data);
-	if(ret) {
-		HC06.print("Fuel Level : ");
-		HC06.println(car_data);
-		Serial.print("Fuel Level : ");
-		Serial.println(car_data);
-	}
-
-	ret = getBattery(&car_data);
-	if(ret) {
-		HC06.print("Battery : ");
-		HC06.println(car_data);
-		Serial.print("Battery : ");
-		Serial.println(car_data);
+		ret = fp[i](&car_data);
+		if (ret) {
+			HC06.print(data_name[i]);
+			HC06.print(" : ");
+			HC06.println(car_data);
+			Serial.print(data_name[i]);
+			Serial.print(" : ");
+			Serial.println(car_data);
+		}
 	}
 	Serial.println("------------------------------------");
 	HC06.println("------------------------------------");

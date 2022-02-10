@@ -16,8 +16,8 @@
 #define CAN_ID_PID			0x7DF
 
 // bluetooth rx, tx
-const static int rxPin = 10;
-const static int txPin = 11;
+static int rxPin = 10;
+static int txPin = 11;
  
 static SoftwareSerial HC06(rxPin, txPin);
 static MCP_CAN CAN(SPI_CS_PIN);

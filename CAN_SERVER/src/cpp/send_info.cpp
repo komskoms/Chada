@@ -1,10 +1,9 @@
 #include "../hpp/header.hpp"
 
 /******************************************************************************************
-** Function Name : send_info_to_app
+** Function Name : send_info
 ** Description	 : send car information to App(Bluetooth) and Serial monitor
 *******************************************************************************************/
-
 bool send_info(int s) {
 	HC06.begin(SERIAL_SPEED);
 	int ret;
@@ -23,7 +22,7 @@ bool send_info(int s) {
 			Serial.println(car_data);
 		}
 	}
-	Serial.println("------------------------------------");
 	HC06.println("------------------------------------");
+	Serial.println("------------------------------------");
 	return 1;
 }

@@ -67,6 +67,11 @@ static char *car_data_name[] = {
 };
 
 /*
+** request_info.cpp
+*/
+bool request_info(int request_num);
+
+/*
 ** CAN_protocol.cpp
 */
 void sendPid(unsigned char pid);

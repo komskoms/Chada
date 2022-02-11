@@ -57,7 +57,7 @@ static bool (*getDataFp[])(int *) = {
 	getSpeed,
 	getBattery
 };
-static char *car_data_name[] = {
+static const char *car_data_name[] = {
 	"Engine RPM",
 	"Coolant Temperature",
 	"Engine Load",

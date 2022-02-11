@@ -9,7 +9,7 @@ void send_info(int s) {
 	int ret;
 	int car_data;
 
-	for (int i = 0; i < sizeof(getDataFp) / sizeof(getDataFp[0]); i++) {
+	for (unsigned int i = 0; i < sizeof(getDataFp) / sizeof(getDataFp[0]); i++) {
 		car_data = s;
 
 		ret = getDataFp[i](&car_data);

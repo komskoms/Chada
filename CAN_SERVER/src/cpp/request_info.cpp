@@ -6,7 +6,7 @@
 *******************************************************************************************/
 void print_info(int request_num) {
     HC06.begin(SERIAL_SPEED);
-    int i = request_num;
+    unsigned int i = request_num;
     int car_data = 0;
     int ret;
 

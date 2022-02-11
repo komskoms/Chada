@@ -4,7 +4,7 @@
 ** Function Name : send_info
 ** Description	 : send car information to App(Bluetooth) and Serial monitor
 *******************************************************************************************/
-bool send_info(int s) {
+void send_info(int s) {
 	HC06.begin(SERIAL_SPEED);
 	int ret;
 	int car_data;
@@ -24,5 +24,4 @@ bool send_info(int s) {
 	}
 	HC06.println("------------------------------------");
 	Serial.println("------------------------------------");
-	return 1;
 }

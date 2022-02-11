@@ -17,16 +17,18 @@ void setup() {
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
 void loop() {
+	HC06.begin(SERIAL_SPEED);
 	int send_data = 0;
-	int request_num = 0;
-
-	if (CANInit) {
-		send_info(send_data);
-	}
-	if (HC06.available) {
-		request_num = HC06.parseInt();
-		//문자로 표현된 숫자를 정수형으로 받음. ex) 123 을 48, 49, 50 이 아닌 123 으로 받음.
+	
+	if (HC06.available() > 0) {
+		String num = HC06.readStringUntil('\n');
+		int request_num = num.toInt();
+		HC06.println(request_num);
 		request_info(request_num);
 	}
-	delay(5000);
+	
+	// if (CANInit) {
+	// 	send_info(send_data);
+	// 	delay(5000);
+	// }
 }

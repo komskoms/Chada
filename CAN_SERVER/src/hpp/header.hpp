@@ -48,7 +48,7 @@ bool getBattery(int *s);
 /*
 ** send_info.cpp
 */
-bool send_info(int s);
+void send_info(int s);
 static bool (*getDataFp[])(int *) = {
 	getEngineRPM,
 	getCoolantTemperature,
@@ -69,7 +69,7 @@ static char *car_data_name[] = {
 /*
 ** request_info.cpp
 */
-bool request_info(int request_num);
+void request_info(int request_num);
 
 /*
 ** CAN_protocol.cpp

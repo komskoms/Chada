@@ -1,4 +1,6 @@
-#include "header.hpp"
+#include "../hpp/header.hpp"
+
+//extern SoftwareSerial HC06;
 
 /******************************************************************************************
 ** Function Name : sendPid
@@ -14,7 +16,10 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid) {
+	//HC06.begin(SERIAL_SPEED);
 	Serial.print(pid);
 	Serial.println(" Pid Timeout");
+	HC06.print(pid);
+	HC06.println(" Pid Timeout");
 	return 0;
 }

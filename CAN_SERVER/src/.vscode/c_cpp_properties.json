@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/Users/kimjaehwan/.platformio/packages/toolchain-atmelavr/avr/include",
+                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/variants/leonardo",
+                "/Users/kimjaehwan/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/Users/kimjaehwan/developer_jaekim/iot/project/can_obd/CAN_SERVER/.pio/libdeps/leonardo/ArduinoSTL/src"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++98",
+            "intelliSenseMode": "macos-clang-arm64"
+        }
+    ],
+    "version": 4
+}

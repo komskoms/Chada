@@ -16,7 +16,7 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid) {
-	HC06.begin(SERIAL_SPEED);
+	//HC06.begin(SERIAL_SPEED);
 	Serial.print(pid);
 	Serial.println(" Pid Timeout");
 	HC06.print(pid);

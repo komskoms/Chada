@@ -5,7 +5,6 @@
 ** Description	 : Print requested car info to the App
 *******************************************************************************************/
 void print_info(int request_num) {
-    //HC06.begin(SERIAL_SPEED);
     unsigned int i = request_num;
     int car_data = 0;
     int ret;
@@ -35,7 +34,6 @@ void print_info(int request_num) {
 ** Description	 : App requests car information to OBD module
 *******************************************************************************************/
 void request_info(int request_num) {
-	// HC06.begin(SERIAL_SPEED);
     HC06.println("------------------------------------");
     HC06.print("App request number [");
 	HC06.print(request_num);

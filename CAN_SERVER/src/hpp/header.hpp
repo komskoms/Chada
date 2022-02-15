@@ -1,7 +1,6 @@
 #ifndef HEADER_HPP
 #define HEADER_HPP
 
-#include <SD.h>
 #include <stdio.h>
 #include <Arduino.h>
 #include <SPI.h>
@@ -14,18 +13,19 @@
 #include "ArduinoSTL.h"
 
 #define SERIAL_SPEED		9600
+#define BLUETOOTH_SPEED		9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
 #define HC06_RX             10
 #define HC06_TX             11
 
 // bluetooth rx, tx
-static int rxPin = 10;
-static int txPin = 11;
- 
-static SoftwareSerial HC06(rxPin, txPin);
-static MCP_CAN CAN(SPI_CS_PIN);
-static OBDPower obd(A3);
+const extern int rxPin = 10;
+const extern int txPin = 11;
+
+extern SoftwareSerial HC06(rxPin, txPin);
+extern MCP_CAN CAN(SPI_CS_PIN);
+extern OBDPower obd(A3);
 
 /*
 ** init.cpp
@@ -33,7 +33,7 @@ static OBDPower obd(A3);
 void SerialInit();
 void CANInit();
 void setMaskFilt();
-//void BluetoothInit();
+void BluetoothInit();
 
 /*
 ** get_info.cpp

@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.dark(),
         primarySwatch: Colors.indigo,
       ),
-      home: MyPage(),
+      home: const MyPage(),
     );
   }
 }
 
 class MyPage extends StatelessWidget {
-  MyPage({Key? key}) : super(key: key);
+  const MyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,8 @@ class MyPage extends StatelessWidget {
 }
 
 class _buildBody extends StatefulWidget {
+  const _buildBody({Key? key}) : super(key: key);
+
   @override
   State<_buildBody> createState() => _buildBodyState();
 }
@@ -83,7 +85,7 @@ Widget mainLeftside(BuildContext context) {
                   child: Text("HUDmode"),
                   onTap: () {
                     // Navigator.pop(context);
-                    Navigator.push(context,
+                    Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(builder: (context) => HUDdisplay()));
                   },
                 ),
@@ -91,13 +93,9 @@ Widget mainLeftside(BuildContext context) {
                   child: Text("Setting"),
                   onTap: () {
                     // Navigator.pop(context);
-                    Navigator.push<void>(context,
-                        MaterialPageRoute(builder: (context) => HUDdisplay()));
                   },
                 ),
               ]),
-          // onPressed: () => ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text("Wha~~~~~T??"))),
           style: ButtonStyle(
               minimumSize: MaterialStateProperty.all<Size>(Size(50, 60)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(

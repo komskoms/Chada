@@ -1,4 +1,4 @@
-#include "../hpp/Pair.hpp"
+#include "Pair.hpp"
 
 Pair::Pair() {
 	this->name = "";
@@ -8,5 +8,18 @@ Pair::Pair() {
 Pair::~Pair() {
 }
 
-Pair::Pair(std::string _name, int _pid) : name(_name), pid(_pid) {
+Pair::Pair(std::string _name, unsigned int _pid, bool *_func(SoftwareSerial &_HC06)) : name(_name + "\r"), pid(_pid) {
+	this->func = _func;
+}
+
+std::string Pair::getName() {
+	return this->name;
+}
+
+unsigned int Pair::getPid() {
+	return this->pid;
+}
+
+void Pair::startFunc(SoftwareSerial &_HC06) {
+	func(_HC06);
 }

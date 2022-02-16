@@ -1,4 +1,4 @@
-#include "../hpp/header.hpp"
+#include "header.hpp"
 
 /******************************************************************************************
 ** Function Name : SerialInit
@@ -16,8 +16,8 @@ void SerialInit() {
 ** Function Name : BluetoothInit
 ** Description	 : Bluetooth App monitor init
 *******************************************************************************************/
-void BluetoothInit() {
-	HC06.begin(BLUETOOTH_SPEED);
+void BluetoothInit(SoftwareSerial &_HC06) {
+	_HC06.begin(BLUETOOTH_SPEED);
 }
 
 /******************************************************************************************
@@ -49,4 +49,34 @@ void setMaskFilt() {
 	CAN.init_Filt(3, 0, 0x7E8);
 	CAN.init_Filt(4, 0, 0x7E8); 
 	CAN.init_Filt(5, 0, 0x7E8);
+	Serial.println("--------------------------------");
+}
+
+/******************************************************************************************
+** Function Name : initPidList
+** Description	 : set pid list
+*******************************************************************************************/
+void initPidList(std::vector<Pair> &pid_list) {
+	std::string str = "ENGINE_SPEED";
+	inputPidList(pid_list, str, OBDPid::ENGINE_SPEED, getEngineRPM);
+
+	str = "ENGINE_COOLANT_TEMPERATURE";
+	inputPidList(pid_list, str, OBDPid::ENGINE_COOLANT_TEMPERATURE, getCoolantTemperature);
+
+	str = "CALCULATED_ENGINE_LOAD";
+	inputPidList(pid_list, str, OBDPid::CALCULATED_ENGINE_LOAD, getEngineLoad);
+
+	str = "FUEL_TANK_LEVEL_INPUT";
+	inputPidList(pid_list, str, OBDPid::FUEL_TANK_LEVEL_INPUT, getFuelLevel);
+
+	str = "VEHICLE_SPEED";
+	inputPidList(pid_list, str, OBDPid::VEHICLE_SPEED, getSpeed);
+
+	str = "BATTERY";
+	inputPidList(pid_list, str, 164, getBattery);
+
+	for (unsigned int i = 0; i < pid_list.size(); ++i)
+		std::cout << pid_list[i].getName() <<  std::endl;
+	Serial.println("Pid List Init ok!");
+	Serial.println("--------------------------------");
 }

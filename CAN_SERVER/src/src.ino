@@ -1,4 +1,4 @@
-#include "hpp/header.hpp"
+#include "header.hpp"
 
 /******************************************************************************************
 ** Function Name : setup
@@ -9,7 +9,7 @@ void setup() {
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
-	HC06.begin(SERIAL_SPEED);
+	BluetoothInit();
 }
 
 /******************************************************************************************
@@ -17,12 +17,12 @@ void setup() {
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
 void loop() {
-	char *result;
-	int send_data = 0;
+	// char *result;
+	// int send_data = 0;
 
 	if (HC06.available() > 0) {
-		int request_num = HC06.readStringUntil('\n').toInt();
-		request_info(request_num);
+		// int request_num = HC06.readStringUntil('\n').toInt();
+		// request_info(request_num);
 	}
 	else
 		delay(1000);

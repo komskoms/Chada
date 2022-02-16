@@ -19,13 +19,9 @@
 #define HC06_RX             10
 #define HC06_TX             11
 
-// bluetooth rx, tx
-const extern int rxPin = 10;
-const extern int txPin = 11;
-
-extern SoftwareSerial HC06(rxPin, txPin);
-extern MCP_CAN CAN(SPI_CS_PIN);
-extern OBDPower obd(A3);
+static SoftwareSerial HC06(HC06_RX, HC06_TX);
+static MCP_CAN CAN(SPI_CS_PIN);
+static OBDPower obd(A3);
 
 /*
 ** init.cpp
@@ -48,28 +44,29 @@ bool getBattery(int *s);
 /*
 ** send_info.cpp
 */
-void send_info(int s);
-static bool (*getDataFp[])(int *) = {
-	getEngineRPM,
-	getCoolantTemperature,
-	getEngineLoad,
-	getFuelLevel,
-	getSpeed,
-	getBattery
-};
-static const char *car_data_name[] = {
-	"Engine RPM",
-	"Coolant Temperature",
-	"Engine Load",
-	"Fuel Level",
-	"Speed",
-	"Battery"
-};
+// void send_info(int s);
+
+// static bool (*getDataFp[])(int *) = {
+// 	getEngineRPM,
+// 	getCoolantTemperature,
+// 	getEngineLoad,
+// 	getFuelLevel,
+// 	getSpeed,
+// 	getBattery
+// };
+// static const char *car_data_name[] = {
+// 	"Engine RPM",
+// 	"Coolant Temperature",
+// 	"Engine Load",
+// 	"Fuel Level",
+// 	"Speed",
+// 	"Battery"
+// };
 
 /*
 ** request_info.cpp
 */
-void request_info(int request_num);
+// void request_info(int request_num);
 
 /*
 ** CAN_protocol.cpp

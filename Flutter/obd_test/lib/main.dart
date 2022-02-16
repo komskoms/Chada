@@ -28,7 +28,10 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: _buildBody(),
+      ),
     );
   }
 }
@@ -43,9 +46,10 @@ class _buildBodyState extends State<_buildBody> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Center(
-            child: Column(children: <Widget>[
-      mainUpper(context),
-      mainList(),
+          child: Column(
+            children: <Widget>[
+              mainUpper(context),
+              mainList(),
     ])));
   }
 

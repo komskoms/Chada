@@ -41,16 +41,6 @@ bool getSpeed(SoftwareSerial &_HC06);
 bool getBattery(SoftwareSerial &_HC06);
 
 /*
-** send_info.cpp
-*/
-// void send_info(int s);
-
-/*
-** request_info.cpp
-*/
-// void request_info(int request_num);
-
-/*
 ** CAN_protocol.cpp
 */
 void sendPid(unsigned char pid);
@@ -59,7 +49,8 @@ bool printTimeout(char *pid, SoftwareSerial &_HC06) ;
 /*
 ** pid_list.cpp
 */
-void inputPidList(std::vector<Pair> &pid_list, std::string name, unsigned int pid, bool *func(SoftwareSerial &_HC06));
+void inputPidList(std::vector<Pair> &pid_list, std::string name, unsigned int pid,
+				bool *func(SoftwareSerial &_HC06));
 void findPid(std::vector<Pair> &pid_list, std::string name, SoftwareSerial &_HC06);
 
 #endif

@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 // }
 
 class HUDdisplay extends StatelessWidget {
-  const HUDdisplay({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +29,7 @@ class HUDdisplay extends StatelessWidget {
         child: Column(
           children: [
             Text("data"),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back"),
-            ),
-          ],
-        ),
+        ],),
       ),
     );
   }

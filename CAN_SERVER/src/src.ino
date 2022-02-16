@@ -1,15 +1,18 @@
-#include "header.hpp"
+#include "hpp/header.hpp"
+
+//volatile int state = LOW;
 
 /******************************************************************************************
 ** Function Name : setup
 ** Description	 : call me when the program starts
 *******************************************************************************************/
 void setup() {
-	std::cout << "hi" << std::endl;
 	SerialInit();
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
+	HC06.begin(SERIAL_SPEED);
+	//attachInterrupt(11, sendRequestData, RISING);
 }
 
 /******************************************************************************************
@@ -17,45 +20,28 @@ void setup() {
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
 void loop() {
-	// test
-	int speed = 0;
-	int ret;
+	//HC06.begin(SERIAL_SPEED);
+	// 차량 데이터 앱에 송신하는 코드
+	int send_data = 0;
 	
-	ret = getEngineRPM(&speed);
-	if(ret) {
-		Serial.print("Engine RPM : ");
-		Serial.println(speed);
+	// //앱에서 OBD에 데이터를 요청하고, OBD에서 앱에 응답하는 코드
+	if (HC06.available() > 0) {
+		String hc06_buf = HC06.readStringUntil('\n');
+		int request_num = hc06_buf.toInt();
+		request_info(request_num);
 	}
-
-	ret = getCoolantTemperature(&speed);
-	if(ret) {
-		Serial.print("Coolant Temperature : ");
-		Serial.println(speed);
-	}
-
-	ret = getEngineLoad(&speed);
-	if(ret) {
-		Serial.print("Engine Load : ");
-		Serial.println(speed);
-	}
-
-	ret = getFuelLevel(&speed);
-	if(ret) {
-		Serial.print("Fuel Level : ");
-		Serial.println(speed);
-	}
-
-	ret = getSpeed(&speed);
-	if(ret) {
-		Serial.print("Speed : ");
-		Serial.println(speed);
-	}
-
-	ret = getBattery(&speed);
-	if(ret) {
-		Serial.print("Battery : ");
-		Serial.println(speed);
-	}
-	Serial.println("------------------------------------");
-	delay(5000);
+	else
+		send_info(send_data);
 }
+
+// void sendRequestData() {
+// 	HC06.begin(SERIAL_SPEED);
+// 	state = !state;
+// 	if (HC06.available() > 0) {
+// 		String num = HC06.readStringUntil('\n');
+// 		int request_num = num.toInt();
+// 		HC06.println(request_num);
+// 		request_info(request_num);
+// 	}
+//  	state = false;
+// }

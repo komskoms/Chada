@@ -61,7 +61,7 @@ Widget mainUpper(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
   )));
 }
-
+//#6161F5
 Widget mainLeftside(BuildContext context) {
   return Row(
     children: [
@@ -104,7 +104,7 @@ Widget mainLeftside(BuildContext context) {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)))),
         ),
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.only(top: 10, bottom: 10, left: 30),
       ),
       Expanded(
           child: Column(

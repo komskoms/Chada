@@ -6,14 +6,12 @@ class mainList extends StatelessWidget {
   Widget build(context) {
     return Container(
       child: ListView(
-        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         padding: EdgeInsets.all(10),
         children: <Widget>[
           itemCard("1_speed", "SPEED", "00"),
           itemCard("2_engine", "ENGINE", "70"),
           itemCard("3_battery", "BETTARY", "42"),
-          itemCard("4_accelerate", "ACCEL", "40"),
           itemCard("4_accelerate", "ACCEL", "40"),
         ],
       ),
@@ -24,23 +22,20 @@ class mainList extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-                width: 60,
-                height: 55,
-                padding: EdgeInsets.all(8),
-                margin:
-                    EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Color(0xff7EBCB3),
-                ),
-                child: Image.asset(
-                  'assets/images/$image_name.png',
-                  fit: BoxFit.contain,
-                )),
-          ),
+            Container(
+              width: 60,
+              height: 60,
+              padding: EdgeInsets.all(8),
+              margin:
+                  EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Color(0xff7EBCB3),
+              ),
+              child: Image.asset(
+                'assets/images/$image_name.png',
+                fit: BoxFit.contain,
+              )),
           Expanded(
             flex: 1,
             child: Container(
@@ -48,7 +43,7 @@ class mainList extends StatelessWidget {
               margin: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10),
               alignment: AlignmentDirectional(-1, 0),
               child: Text("$name",
-                  style: TextStyle(
+                    style: TextStyle(
                     fontWeight: FontWeight.bold,
                   )),
             ),

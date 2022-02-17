@@ -4,40 +4,46 @@ import 'package:obd_test/main.dart';
 class mainList extends StatelessWidget {
   @override
   Widget build(context) {
-    return SafeArea(
-        child: ListView(
-      shrinkWrap: true,
-      padding: EdgeInsets.all(10),
-      children: <Widget>[
-        itemCard("data01", "00"),
-        itemCard("data02", "70"),
-        itemCard("data03", "42"),
-        itemCard("data04", "40"),
-      ],
-    ));
+    return Container(
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(10),
+        children: <Widget>[
+          itemCard("1_speed", "SPEED", "00"),
+          itemCard("2_engine", "ENGINE", "70"),
+          itemCard("3_battery", "BETTARY", "42"),
+          itemCard("4_accelerate", "ACCEL", "40"),
+        ],
+      ),
+    );
   }
 
-  Widget itemCard(String name, String value) {
+  Widget itemCard(String image_name, String name, String value) {
     return Container(
       child: Row(
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              child: Icon(
-                Icons.adb_outlined,
-                size: 60,
+            Container(
+              width: 60,
+              height: 60,
+              padding: EdgeInsets.all(8),
+              margin:
+                  EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Color(0xff7EBCB3),
               ),
-            ),
-          ),
+              child: Image.asset(
+                'assets/images/$image_name.png',
+                fit: BoxFit.contain,
+              )),
           Expanded(
             flex: 1,
             child: Container(
               height: 80,
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10),
               alignment: AlignmentDirectional(-1, 0),
               child: Text("$name",
-                  style: TextStyle(
+                    style: TextStyle(
                     fontWeight: FontWeight.bold,
                   )),
             ),
@@ -46,7 +52,7 @@ class mainList extends StatelessWidget {
             flex: 2,
             child: Container(
               height: 80,
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.only(left: 50.0),
               alignment: AlignmentDirectional(-0.2, 0),
               child: Text(
                 "$value unit",

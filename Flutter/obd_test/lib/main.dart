@@ -1,13 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:obd_test/bottomDrawer.dart';
 import 'HUDscreen.dart';
 import 'homeListView.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyPage extends StatelessWidget {
-  MyPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,21 +33,70 @@ class MyPage extends StatelessWidget {
 }
 
 class _buildBody extends StatefulWidget {
-  const _buildBody({Key? key}) : super(key: key);
-
   @override
   State<_buildBody> createState() => _buildBodyState();
 }
 
 class _buildBodyState extends State<_buildBody> {
+  bool showMainMenu = false;
+  bool showBottomMenu = false;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Center(
-            child: Column(children: <Widget>[
-      mainUpper(context),
-      mainList(),
-    ])));
+    double height = MediaQuery.of(context).size.height;
+    double threshold = 100;
+
+    if (showBottomMenu == true) {
+      return SafeArea(
+          child: Center(
+              child: Stack(
+        children: [
+          Column(children: <Widget>[
+            mainUpper(context),
+            mainList(),
+          ]),
+          GestureDetector(
+              onTap: () {
+                setState(() {
+                  showBottomMenu = false;
+                });
+              },
+              child: AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: (showBottomMenu) ? 1.0 : 0.0,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+              )),
+          AnimatedPositioned(
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 200),
+              left: MediaQuery.of(context).size.width * 0.05,
+              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+              child: drawerForSetting())
+        ],
+      )));
+    } else {
+      return SafeArea(
+          child: Center(
+              child: Stack(
+        children: [
+          Column(children: <Widget>[
+            mainUpper(context),
+            mainList(),
+          ]),
+          AnimatedPositioned(
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 200),
+              left: MediaQuery.of(context).size.width * 0.05,
+              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+              child: drawerForSetting())
+        ],
+      )));
+    }
   }
 
   Widget mainUpper(BuildContext context) {
@@ -56,69 +104,75 @@ class _buildBodyState extends State<_buildBody> {
         child: Center(
             child: Row(
       children: [
-        Expanded(child: mainLeftside(context)),
-        Expanded(child: mainSimpleInfo(context)),
+        Expanded(
+          flex: 1,
+          child: mainMenu(context),
+        ),
+        Expanded(
+          flex: 3,
+          child: mainStatus(context),
+        ),
+        Expanded(
+          flex: 4,
+          child: mainSimpleInfo(context),
+        ),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     )));
   }
 
-  Widget mainLeftside(BuildContext context) {
+  Widget mainMenu(BuildContext context) {
+    if (showMainMenu == false) {
+      return Container(
+        child: ElevatedButton(
+          child: Icon(
+            Icons.menu,
+            color: Color(0xffefefef),
+          ),
+          onPressed: () {
+            setState(() {
+              showMainMenu = true;
+            });
+          },
+        ),
+      );
+    } else {
+      return Container(
+        child: Column(
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    showMainMenu = false;
+                  });
+                },
+                child: Icon(Icons.close)),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HUDdisplay()));
+                },
+                child: Icon(Icons.table_rows_outlined)),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    showBottomMenu = (showBottomMenu) ? false : true;
+                  });
+                },
+                child: Icon(Icons.settings)),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget mainStatus(BuildContext context) {
     return Row(
       children: [
-        Container(
-          child: ElevatedButton(
-            child: Icon(
-              Icons.menu,
-              color: Color(0xffefefef),
-            ),
-            onPressed: () => showMenu(
-                context: context,
-                position: RelativeRect.fromLTRB(0, 120, 0, 100),
-                items: [
-                  PopupMenuItem<String>(
-                    child: Text("showSnackbar"),
-                    onTap: () {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text("Wha~~~~~T??")));
-                    },
-                  ),
-                  PopupMenuItem<String>(
-                    child: Text("HUDmode"),
-                    onTap: () {
-                      // Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HUDdisplay()));
-                    },
-                  ),
-                  PopupMenuItem<String>(
-                    child: Text("Setting"),
-                    onTap: () {
-                      // Navigator.pop(context);
-                      Navigator.push<void>(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HUDdisplay()));
-                    },
-                  ),
-                ]),
-            // onPressed: () => ScaffoldMessenger.of(context)
-            //     .showSnackBar(SnackBar(content: Text("Wha~~~~~T??"))),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xff6161F5)),
-                minimumSize: MaterialStateProperty.all<Size>(Size(50, 60)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)))),
-          ),
-          margin: EdgeInsets.only(top: 30, left: 30),
-        ),
         Expanded(
             child: Column(
           children: [mainCarStatus(context), mainSelector(context)],
-        ))
+        )),
       ],
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,

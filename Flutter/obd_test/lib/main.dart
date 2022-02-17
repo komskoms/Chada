@@ -126,7 +126,7 @@ class _buildBodyState extends State<_buildBody> {
         ))
       ],
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.max,
     );
   }

@@ -47,7 +47,6 @@ class _buildBodyState extends State<_buildBody> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double threshold = 100;
 
     if (showBottomMenu == true) {
       return SafeArea(
@@ -114,11 +113,11 @@ class _buildBodyState extends State<_buildBody> {
               child: mainMenu(context),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: mainStatus(context),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: mainSimpleInfo(context),
             ),
           ],
@@ -223,8 +222,8 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainSelector(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 15),
+      padding: EdgeInsets.all(18),
+      margin: EdgeInsets.only(top: 5, bottom: 10, left: 15, right: 15),
       child: Column(
         children: [
           Container(
@@ -260,7 +259,7 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget infoKeyValue(String _key, String _val) {
     return Container(
-      margin: EdgeInsets.only(top: 15, left: 15, bottom: 15, right: 15),
+      margin: EdgeInsets.all(11),
       child: Row(
         children: [
           Expanded(

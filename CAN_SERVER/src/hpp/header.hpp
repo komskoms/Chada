@@ -16,12 +16,12 @@
 #define SERIAL_SPEED		9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
-#define HC06_RX             10
 #define HC06_TX             11
+#define HC06_RX             10
 
 // bluetooth rx, tx
-static int rxPin = 10;
-static int txPin = 11;
+static int txPin = HC06_TX;
+static int rxPin = HC06_RX;
  
 static SoftwareSerial HC06(rxPin, txPin);
 static MCP_CAN CAN(SPI_CS_PIN);

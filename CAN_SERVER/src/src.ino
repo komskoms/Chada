@@ -23,7 +23,6 @@ void loop() {
 	//HC06.begin(SERIAL_SPEED);
 	// 차량 데이터 앱에 송신하는 코드
 	int send_data = 0;
-	
 	// //앱에서 OBD에 데이터를 요청하고, OBD에서 앱에 응답하는 코드
 	if (HC06.available() > 0) {
 		String hc06_buf = HC06.readStringUntil('\n');

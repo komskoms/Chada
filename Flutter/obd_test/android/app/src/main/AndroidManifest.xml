@@ -1,10 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.obd_test">
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <application
-        android:label="obd_test"
+   <application
+        android:label="차다"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

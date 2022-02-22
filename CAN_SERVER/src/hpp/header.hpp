@@ -1,29 +1,23 @@
 #ifndef HEADER_HPP
 #define HEADER_HPP
 
-#include <SD.h>
 #include <stdio.h>
 #include <Arduino.h>
 #include <SPI.h>
 #include <SoftwareSerial.h>
+#include "ArduinoSTL.h"
 #include "mcp_can.hpp"
 #include "OBDPower.hpp"
 #include "OBD_PID.hpp"
-
-// c++ 관련 헤더
-#include "ArduinoSTL.h"
+#include "Pair.hpp"
 
 #define SERIAL_SPEED		9600
+#define BLUETOOTH_SPEED		9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
 #define HC06_TX             11
 #define HC06_RX             10
 
-// bluetooth rx, tx
-static int txPin = HC06_TX;
-static int rxPin = HC06_RX;
- 
-static SoftwareSerial HC06(rxPin, txPin);
 static MCP_CAN CAN(SPI_CS_PIN);
 static OBDPower obd(A3);
 
@@ -33,48 +27,30 @@ static OBDPower obd(A3);
 void SerialInit();
 void CANInit();
 void setMaskFilt();
-//void BluetoothInit();
+void BluetoothInit(SoftwareSerial &_HC06);
+void initPidList(std::vector<Pair> &pid_list);
 
 /*
 ** get_info.cpp
 */
-bool getEngineRPM(int *s);
-bool getCoolantTemperature(int *s);
-bool getEngineLoad(int *s);
-bool getFuelLevel(int *s);
-bool getSpeed(int *s);
-bool getBattery(int *s);
-
-/*
-** send_info.cpp
-*/
-void send_info(int s);
-static bool (*getDataFp[])(int *) = {
-	getEngineRPM,
-	getCoolantTemperature,
-	getEngineLoad,
-	getFuelLevel,
-	getSpeed,
-	getBattery
-};
-static const char *car_data_name[] = {
-	"Engine RPM",
-	"Coolant Temperature",
-	"Engine Load",
-	"Fuel Level",
-	"Speed",
-	"Battery"
-};
-
-/*
-** request_info.cpp
-*/
-void request_info(int request_num);
+bool getEngineRPM(SoftwareSerial &_HC06);
+bool getCoolantTemperature(SoftwareSerial &_HC06);
+bool getEngineLoad(SoftwareSerial &_HC06);
+bool getFuelLevel(SoftwareSerial &_HC06);
+bool getSpeed(SoftwareSerial &_HC06);
+bool getBattery(SoftwareSerial &_HC06);
 
 /*
 ** CAN_protocol.cpp
 */
 void sendPid(unsigned char pid);
-bool printTimeout(char *pid);
+bool printTimeout(char *pid, SoftwareSerial &_HC06) ;
+
+/*
+** pid_list.cpp
+*/
+void inputPidList(std::vector<Pair> &pid_list, std::string name, unsigned int pid,
+				bool *func(SoftwareSerial &_HC06));
+void findPid(std::vector<Pair> &pid_list, std::string name, SoftwareSerial &_HC06);
 
 #endif

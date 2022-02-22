@@ -1,6 +1,7 @@
-#include "hpp/header.hpp"
+#include "header.hpp"
 
-//volatile int state = LOW;
+SoftwareSerial HC06(HC06_RX, HC06_TX);
+std::vector<Pair> pid_list;
 
 /******************************************************************************************
 ** Function Name : setup
@@ -11,8 +12,8 @@ void setup() {
 	obd.PowerOn();
 	CANInit();
 	setMaskFilt();
-	HC06.begin(SERIAL_SPEED);
-	//attachInterrupt(11, sendRequestData, RISING);
+	BluetoothInit(HC06);
+	initPidList(pid_list);
 }
 
 /******************************************************************************************
@@ -20,27 +21,12 @@ void setup() {
 ** Description	 : call continuously until the program is over
 *******************************************************************************************/
 void loop() {
-	//HC06.begin(SERIAL_SPEED);
-	// 차량 데이터 앱에 송신하는 코드
-	int send_data = 0;
-	// //앱에서 OBD에 데이터를 요청하고, OBD에서 앱에 응답하는 코드
 	if (HC06.available() > 0) {
-		String hc06_buf = HC06.readStringUntil('\n');
-		int request_num = hc06_buf.toInt();
-		request_info(request_num);
+		String request = HC06.readStringUntil('\n');
+		std::string str = request.c_str();
+		Serial.println(request.c_str());
+		findPid(pid_list, str, HC06);
 	}
 	else
-		send_info(send_data);
+		delay(1000);
 }
-
-// void sendRequestData() {
-// 	HC06.begin(SERIAL_SPEED);
-// 	state = !state;
-// 	if (HC06.available() > 0) {
-// 		String num = HC06.readStringUntil('\n');
-// 		int request_num = num.toInt();
-// 		HC06.println(request_num);
-// 		request_info(request_num);
-// 	}
-//  	state = false;
-// }

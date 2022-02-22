@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OBD_AppTest',
+      title: 'OBD_App',
       theme: ThemeData(
         colorScheme: ColorScheme.dark(),
         primarySwatch: Colors.indigo,

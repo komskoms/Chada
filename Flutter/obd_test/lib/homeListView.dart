@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:obd_test/coms.dart';
+import 'package:obd_test/comms.dart';
 import 'package:obd_test/main.dart';
 
 class mainList extends StatelessWidget {

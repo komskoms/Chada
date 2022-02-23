@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'OBD_PID.dart';
 
 class carInfo {
-  static bool _connected = false;
   static BluetoothDevice _server = null;
+  static BluetoothConnection _connection;
+  static bool _connected = false;
   static bool _scanning = false;
+  String _messageBuffer = '';
 
   static List<bool> _scanPID =
       List.generate(OBDPid.LAST_INDEX.index, (index) => true);
@@ -56,7 +60,23 @@ class carInfo {
       return -2;
     } else {
       battery_charge = 90;
+      _sendMessage(PidName[pidIndex]);
       return rand.nextInt(100);
+    }
+  }
+
+  void _sendMessage(String text) async {
+    text = text.trim();
+    // textEditingController.clear();
+
+    if (text.length > 0) {
+      try {
+        _connection.output.add(Uint8List.fromList(utf8.encode(text + "\r\n")));
+        await _connection.output.allSent;
+      } catch (e) {
+        // Ignore error, but notify state
+        print("errorororororor");
+      }
     }
   }
 
@@ -70,4 +90,10 @@ class carInfo {
 
   get getServer => _server;
   set setServer(BluetoothDevice server) => _server = server;
+
+  get getConnection => _connection;
+  set setConnection(BluetoothConnection connection) => _connection = connection;
+
+  get getConnected => _connected;
+  set setConnected(bool connected) => _connected = connected;
 }

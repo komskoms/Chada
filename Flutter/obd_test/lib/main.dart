@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OBD_AppTest',
+      title: 'OBD_App',
       theme: ThemeData(
         colorScheme: ColorScheme.dark(),
         primarySwatch: Colors.indigo,
@@ -47,7 +47,6 @@ class _buildBodyState extends State<_buildBody> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double threshold = 100;
 
     if (showBottomMenu == true) {
       return SafeArea(
@@ -85,52 +84,59 @@ class _buildBodyState extends State<_buildBody> {
     } else {
       return SafeArea(
           child: Center(
-              child: Stack(
-        children: [
-          Column(children: <Widget>[
-            mainUpper(context),
-            mainList(),
-          ]),
-          AnimatedPositioned(
-              curve: Curves.easeInOut,
-              duration: Duration(milliseconds: 200),
-              left: MediaQuery.of(context).size.width * 0.05,
-              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-              child: drawerForSetting())
-        ],
+            child: Stack(
+              children: [
+                Column(children: <Widget>[
+                  mainUpper(context),
+                  mainList(),
+                ]),
+                AnimatedPositioned(
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: 200),
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+                  child: drawerForSetting())
+              ],
       )));
     }
   }
 
   Widget mainUpper(BuildContext context) {
     return Container(
-        child: Center(
-            child: Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: mainMenu(context),
-        ),
-        Expanded(
-          flex: 3,
-          child: mainStatus(context),
-        ),
-        Expanded(
-          flex: 4,
-          child: mainSimpleInfo(context),
-        ),
-      ],
+      margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+      child: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 1,
+              child: mainMenu(context),
+            ),
+            Expanded(
+              flex: 2,
+              child: mainStatus(context),
+            ),
+            Expanded(
+              flex: 3,
+              child: mainSimpleInfo(context),
+            ),
+          ],
       mainAxisAlignment: MainAxisAlignment.center,
     )));
   }
 
   Widget mainMenu(BuildContext context) {
+    final ButtonStyle style = ElevatedButton.styleFrom(
+        primary: Color(0xff6161F5),
+      );
+    
     if (showMainMenu == false) {
       return Container(
         child: ElevatedButton(
+          style: style,
           child: Icon(
-            Icons.menu,
-            color: Color(0xffefefef),
+              Icons.menu,
+              color: Color(0xffefefef),
           ),
           onPressed: () {
             setState(() {
@@ -144,25 +150,34 @@ class _buildBodyState extends State<_buildBody> {
         child: Column(
           children: [
             ElevatedButton(
+                style: style,
                 onPressed: () {
                   setState(() {
                     showMainMenu = false;
                   });
                 },
-                child: Icon(Icons.close)),
+                child: Icon(Icons.close,
+                color: Color(0xffefefef),
+                )),
             ElevatedButton(
+                style: style,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HUDdisplay()));
                 },
-                child: Icon(Icons.table_rows_outlined)),
+                child: Icon(Icons.table_rows_outlined,
+                  color: Color(0xffefefef),
+                )),
             ElevatedButton(
+                style: style,
                 onPressed: () {
                   setState(() {
                     showBottomMenu = (showBottomMenu) ? false : true;
                   });
                 },
-                child: Icon(Icons.settings)),
+                child: Icon(Icons.settings,
+                  color: Color(0xffefefef),
+                )),
           ],
         ),
       );
@@ -198,7 +213,7 @@ class _buildBodyState extends State<_buildBody> {
               Icons.face_sharp,
               size: 60,
             ),
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.only(top: 10, bottom: 0),
           ),
         ],
       ),
@@ -207,8 +222,8 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainSelector(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(18),
+      margin: EdgeInsets.only(top: 5, bottom: 10, left: 15, right: 15),
       child: Column(
         children: [
           Container(
@@ -216,7 +231,7 @@ class _buildBodyState extends State<_buildBody> {
               "Selected",
               style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
             ),
-            margin: EdgeInsets.only(bottom: 7),
+            margin: EdgeInsets.only(bottom: 5),
           ),
           Image.asset('assets/images/1_speed.png', fit: BoxFit.contain),
         ],
@@ -238,26 +253,25 @@ class _buildBodyState extends State<_buildBody> {
         ],
       ),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Color(0xff6161F5)),
+          borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
     );
   }
 
   Widget infoKeyValue(String _key, String _val) {
     return Container(
-      margin: EdgeInsets.only(top: 13, left: 5, bottom: 13),
+      margin: EdgeInsets.all(11),
       child: Row(
         children: [
           Expanded(
-            flex: 1,
-            child: Container(
-            child: Text(
-              _key,
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.start,
-            ),
-            alignment: AlignmentDirectional(0.0, 0.0),
-          )),
+              flex: 1,
+              child: Container(
+                child: Text(
+                  _key,
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
+                ),
+                alignment: AlignmentDirectional(0.0, 0.0),
+              )),
           Expanded(
             flex: 2,
             child: Container(

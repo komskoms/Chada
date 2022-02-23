@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HUDdisplay extends StatefulWidget {
-  const HUDdisplay({Key key}) : super(key: key);
+  const HUDdisplay({Key? key}) : super(key: key);
   @override
   _HUDdisplayState createState() => _HUDdisplayState();
 }

@@ -1,9 +1,11 @@
 import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:obd_test/bottomDrawer.dart';
 import 'HUDscreen.dart';
 import 'homeListView.dart';
+import 'coms.dart';
 
 void main() => runApp(const MyApp());
 
@@ -41,8 +43,22 @@ class _buildBody extends StatefulWidget {
 }
 
 class _buildBodyState extends State<_buildBody> {
+  late carInfo info = carInfo();
   bool showMainMenu = false;
   bool showBottomMenu = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        info.randomize();
+      });
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,10 +262,10 @@ class _buildBodyState extends State<_buildBody> {
     return Container(
       child: Column(
         children: [
-          infoKeyValue("RPM", "750"),
-          infoKeyValue("Temp", "24'C"),
-          infoKeyValue("Load", "0%"),
-          infoKeyValue("Fuel", "42%"),
+          infoKeyValue("RPM", "${info.ENG_RPM}rpm"),
+          infoKeyValue("Temp", "${info.COOL_TMP}˚C"),
+          infoKeyValue("Load", "${info.ENG_LOAD}%"),
+          infoKeyValue("Fuel", "${info.FUEL_LVL}%"),
         ],
       ),
       decoration: BoxDecoration(

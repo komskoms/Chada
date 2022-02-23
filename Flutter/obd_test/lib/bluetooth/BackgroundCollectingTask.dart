@@ -11,10 +11,10 @@ class DataSample {
   DateTime timestamp;
 
   DataSample({
-    required this.temperature1,
-    required this.temperature2,
-    required this.waterpHlevel,
-    required this.timestamp,
+    @required this.temperature1,
+    @required this.temperature2,
+    @required this.waterpHlevel,
+    @required this.timestamp,
   });
 }
 
@@ -40,7 +40,7 @@ class BackgroundCollectingTask extends Model {
   bool inProgress = false;
 
   BackgroundCollectingTask._fromConnection(this._connection) {
-    _connection.input!.listen((data) {
+    _connection.input.listen((data) {
       _buffer += data;
 
       while (true) {

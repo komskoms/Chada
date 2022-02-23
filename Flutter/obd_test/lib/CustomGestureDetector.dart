@@ -9,12 +9,12 @@ class CustomGestureDetector extends StatelessWidget{
   final int axis;
   final Widget child;
   final double velocity;
-  final Function? onSwipeUp;
-  final Function? onSwipeDown;
-  final Function? onSwipeLeft;
-  final Function? onSwipeRight;
+  final Function onSwipeUp;
+  final Function onSwipeDown;
+  final Function onSwipeLeft;
+  final Function onSwipeRight;
 
-  CustomGestureDetector({required this.child,required this.velocity,this.onSwipeLeft,this.onSwipeRight,this.onSwipeUp,this.onSwipeDown,required this.axis});
+  CustomGestureDetector({@required this.child,@required this.velocity,this.onSwipeLeft,this.onSwipeRight,this.onSwipeUp,this.onSwipeDown,@required this.axis});
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +27,17 @@ class CustomGestureDetector extends StatelessWidget{
           try {
             if((axis == AXIS_Y) || axis == AXIS_BOTH){
               if(v.dy>velocity){
-                onSwipeDown!();
+                onSwipeDown();
               } else if(v.dy<-velocity){
-                onSwipeUp!();
+                onSwipeUp();
               }
             }
 
             if((axis == AXIS_X )  || axis == AXIS_BOTH){
               if(v.dx>velocity){
-                onSwipeRight!();
+                onSwipeRight();
               } else if(v.dx<-velocity) {
-                onSwipeLeft!();
+                onSwipeLeft();
               }
             }
           } catch (e){

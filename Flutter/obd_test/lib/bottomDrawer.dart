@@ -17,10 +17,10 @@ class drawerForSettingState extends State<drawerForSetting> {
   String _address = "...";
   String _name = "...";
 
-  Timer? _discoverableTimeoutTimer;
+  Timer _discoverableTimeoutTimer;
   int _discoverableTimeoutSecondsLeft = 0;
 
-  BackgroundCollectingTask? _collectingTask;
+  BackgroundCollectingTask _collectingTask;
 
   bool _autoAcceptPairingRequests = false;
 
@@ -46,14 +46,14 @@ class drawerForSettingState extends State<drawerForSetting> {
       // Update the address field
       FlutterBluetoothSerial.instance.address.then((address) {
         setState(() {
-          _address = address!;
+          _address = address;
         });
       });
     });
 
     FlutterBluetoothSerial.instance.name.then((name) {
       setState(() {
-        _name = name!;
+        _name = name;
       });
     });
 
@@ -124,7 +124,7 @@ class drawerForSettingState extends State<drawerForSetting> {
               title: ElevatedButton(
                 child: const Text('Connect to paired device to chat'),
                 onPressed: () async {
-                  final BluetoothDevice? selectedDevice =
+                  final BluetoothDevice selectedDevice =
                       await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {

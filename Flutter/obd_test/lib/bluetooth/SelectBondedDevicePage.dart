@@ -25,7 +25,7 @@ enum _DeviceAvailability {
 class _DeviceWithAvailability {
   BluetoothDevice device;
   _DeviceAvailability availability;
-  int? rssi;
+  int rssi;
 
   _DeviceWithAvailability(this.device, this.availability, [this.rssi]);
 }
@@ -35,7 +35,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
       List<_DeviceWithAvailability>.empty(growable: true);
 
   // Availability
-  StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
+  StreamSubscription<BluetoothDiscoveryResult> _discoveryStreamSubscription;
   bool _isDiscovering = false;
 
   _SelectBondedDevicePage();

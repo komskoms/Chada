@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:obd_test/coms.dart';
 
 import 'bluetooth/BackgroundCollectingTask.dart';
 import 'bluetooth/ChatPage.dart';
@@ -13,6 +14,7 @@ class drawerForSetting extends StatefulWidget {
 
 class drawerForSettingState extends State<drawerForSetting> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
+  carInfo info = carInfo();
 
   String _address = "...";
   String _name = "...";
@@ -92,6 +94,7 @@ class drawerForSettingState extends State<drawerForSetting> {
         color: Colors.deepPurpleAccent,
         child: ListView(
           children: [
+            Padding(padding: EdgeInsets.all(30)),
             SwitchListTile(
               title: const Text('Enable Bluetooth'),
               value: _bluetoothState.isEnabled,
@@ -122,6 +125,27 @@ class drawerForSettingState extends State<drawerForSetting> {
             ),
             ListTile(
               title: ElevatedButton(
+                child: const Text('Select OBD device'),
+                onPressed: () async {
+                  final BluetoothDevice selectedDevice =
+                      await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SelectBondedDevicePage(checkAvailability: false);
+                      },
+                    ),
+                  );
+                  if (selectedDevice != null) {
+                    info.setServer = selectedDevice;
+                    print('Connect -> selected OBD ' + info.getServer.address);
+                  } else {
+                    print('Connect -> no device selected');
+                  }
+                },
+              ),
+            ),
+            ListTile(
+              title: ElevatedButton(
                 child: const Text('Connect to paired device to chat'),
                 onPressed: () async {
                   final BluetoothDevice selectedDevice =
@@ -147,7 +171,6 @@ class drawerForSettingState extends State<drawerForSetting> {
       ),
     );
   }
-
 
   void _startChat(BuildContext context, BluetoothDevice server) {
     Navigator.of(context).push(

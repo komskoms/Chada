@@ -123,10 +123,11 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainUpper(BuildContext context) {
     return Container(
+        color: Colors.red,
         margin: EdgeInsets.only(top: 20, right: 20, left: 20),
-        child: Center(
+        child: Container(
             child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               flex: 1,
@@ -141,7 +142,6 @@ class _buildBodyState extends State<_buildBody> {
               child: mainSimpleInfo(context),
             ),
           ],
-          mainAxisAlignment: MainAxisAlignment.center,
         )));
   }
 

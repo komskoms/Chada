@@ -8,12 +8,12 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'OBD_PID.dart';
 
 class _message {
-  int whom;
+  String whom;
   String text;
 
   _message(this.whom, this.text);
   _message.fromList(List<String> str) {
-    whom = int.parse(str[0]);
+    whom = str[0];
     text = str[1];
   }
 }
@@ -63,6 +63,7 @@ class carInfo {
 
     while (i < OBDPid.LAST_INDEX.index) {
       await scanItem(i++, _scanMethod);
+      Future.delayed(Duration(milliseconds: 100));
     }
   }
 
@@ -75,8 +76,6 @@ class carInfo {
   }
 
   int _scanMethod(int pidIndex) {
-    var rand = Random();
-
     if (_server == null) {
       print("Tried scan without being connected to OBD");
       return -2;
@@ -126,7 +125,7 @@ class carInfo {
   }
 
   void printMessage(_message msg) {
-    print(PidName[msg.whom] + ': ' + msg.text);
+    print(msg.whom + ': ' + msg.text);
   }
 
   void printReceived() {
@@ -146,10 +145,12 @@ class carInfo {
     } else {
       val = int.parse(msg.text);
     }
-    if (msg.whom == 164) {
+    if (msg.whom == "BATTERY_MAYBE") {
       battery_charge = val;
+    } else if (PidName.indexOf(msg.whom) == -1) {
+      print("CommError: respond PID is not available");
     } else {
-      _values[msg.whom] = val;
+      _values[PidName.indexOf(msg.whom)] = val;
     }
     return msg;
   }
@@ -188,9 +189,8 @@ class carInfo {
           ? _messageBuffer.substring(
               0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString.substring(0, index);
-      messages.add(
-        setValueByMessage(_message.fromList(_rawMessage.split(":")))
-      );
+      messages
+          .add(setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
       _messageBuffer = dataString.substring(index);
     } else {
       _messageBuffer = (backspacesCounter > 0

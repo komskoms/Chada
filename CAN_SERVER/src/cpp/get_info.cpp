@@ -29,7 +29,7 @@ bool getEngineRPM(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Engine RPM", _HC06);
+	return printTimeout(ENGINE_SPEED, _HC06);
 }
 
 /******************************************************************************************
@@ -57,7 +57,7 @@ bool getCoolantTemperature(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Coolant Temperature", _HC06);
+	return printTimeout(ENGINE_COOLANT_TEMPERATURE, _HC06);
 }
 
 /******************************************************************************************
@@ -85,7 +85,7 @@ bool getEngineLoad(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Engine Load", _HC06);
+	return printTimeout(CALCULATED_ENGINE_LOAD, _HC06);
 }
 
 /******************************************************************************************
@@ -113,7 +113,7 @@ bool getFuelLevel(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Fuel level", _HC06);
+	return printTimeout(FUEL_TANK_LEVEL_INPUT, _HC06);
 }
 
 /******************************************************************************************
@@ -139,7 +139,7 @@ bool getSpeed(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Vehicle Speed", _HC06);
+	return printTimeout(VEHICLE_SPEED, _HC06);
 }
 
 /******************************************************************************************
@@ -147,7 +147,7 @@ bool getSpeed(SoftwareSerial &_HC06) {
 ** Description	 : get battery
 *******************************************************************************************/
 bool getBattery(SoftwareSerial &_HC06) {
-	sendPid(164);
+	sendPid(BATTERY_MAYBE);
 	unsigned long timeout_ = millis();
 	int battery;
 
@@ -168,5 +168,5 @@ bool getBattery(SoftwareSerial &_HC06) {
 			}
 		}
 	}
-	return printTimeout((char *)"Battery", _HC06);
+	return printTimeout(BATTERY_MAYBE, _HC06);
 }

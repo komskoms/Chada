@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:obd_test/comms.dart';
 
 import 'bluetooth/BackgroundCollectingTask.dart';
 import 'bluetooth/ChatPage.dart';
@@ -13,6 +16,8 @@ class drawerForSetting extends StatefulWidget {
 
 class drawerForSettingState extends State<drawerForSetting> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
+  carInfo info = carInfo();
+  String message = '';
 
   String _address = "...";
   String _name = "...";
@@ -92,6 +97,7 @@ class drawerForSettingState extends State<drawerForSetting> {
         color: Colors.deepPurpleAccent,
         child: ListView(
           children: [
+            Padding(padding: EdgeInsets.all(20)),
             SwitchListTile(
               title: const Text('Enable Bluetooth'),
               value: _bluetoothState.isEnabled,
@@ -117,6 +123,40 @@ class drawerForSettingState extends State<drawerForSetting> {
                 child: const Text('Settings'),
                 onPressed: () {
                   FlutterBluetoothSerial.instance.openSettings();
+                },
+              ),
+            ),
+            ListTile(
+              title: ElevatedButton(
+                child: const Text('Select OBD device'),
+                onPressed: () async {
+                  final BluetoothDevice selectedDevice =
+                      await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SelectBondedDevicePage(checkAvailability: false);
+                      },
+                    ),
+                  );
+                  if (selectedDevice != null) {
+                    info.startComm(context, selectedDevice);
+                    print('Connect -> selected OBD ' + info.getServer.address);
+                  } else {
+                    print('Connect -> no device selected');
+                  }
+                  setState(() {});
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('OBD Connectivity'),
+              subtitle: Text(info.getConnection.toString()),
+              trailing: ElevatedButton(
+                child: const Text('Disconnect'),
+                onPressed: () {
+                  setState(() {
+                    info.dispose();
+                  });
                 },
               ),
             ),

@@ -1,9 +1,11 @@
 import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:obd_test/bottomDrawer.dart';
 import 'HUDscreen.dart';
 import 'homeListView.dart';
+import 'comms.dart';
 
 void main() => runApp(const MyApp());
 
@@ -41,8 +43,26 @@ class _buildBody extends StatefulWidget {
 }
 
 class _buildBodyState extends State<_buildBody> {
+  carInfo info = carInfo();
   bool showMainMenu = false;
   bool showBottomMenu = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    info.switchTest();
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (info.getServer != null) {
+          info.scanAll();
+          info.printReceived();
+        }
+        // info.randomize();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,28 +104,28 @@ class _buildBodyState extends State<_buildBody> {
     } else {
       return SafeArea(
           child: Center(
-            child: Stack(
-              children: [
-                Column(children: <Widget>[
-                  mainUpper(context),
-                  mainList(),
-                ]),
-                AnimatedPositioned(
-                  curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: 200),
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-                  child: drawerForSetting())
-              ],
+              child: Stack(
+        children: [
+          Column(children: <Widget>[
+            mainUpper(context),
+            mainList(),
+          ]),
+          AnimatedPositioned(
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 200),
+              left: MediaQuery.of(context).size.width * 0.05,
+              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+              child: drawerForSetting())
+        ],
       )));
     }
   }
 
   Widget mainUpper(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20, right: 20, left: 20),
-      child: Center(
-        child: Row(
+        margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+        child: Center(
+            child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -121,22 +141,22 @@ class _buildBodyState extends State<_buildBody> {
               child: mainSimpleInfo(context),
             ),
           ],
-      mainAxisAlignment: MainAxisAlignment.center,
-    )));
+          mainAxisAlignment: MainAxisAlignment.center,
+        )));
   }
 
   Widget mainMenu(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Color(0xff6161F5),
-      );
-    
+      primary: Color(0xff6161F5),
+    );
+
     if (showMainMenu == false) {
       return Container(
         child: ElevatedButton(
           style: style,
           child: Icon(
-              Icons.menu,
-              color: Color(0xffefefef),
+            Icons.menu,
+            color: Color(0xffefefef),
           ),
           onPressed: () {
             setState(() {
@@ -156,8 +176,9 @@ class _buildBodyState extends State<_buildBody> {
                     showMainMenu = false;
                   });
                 },
-                child: Icon(Icons.close,
-                color: Color(0xffefefef),
+                child: Icon(
+                  Icons.close,
+                  color: Color(0xffefefef),
                 )),
             ElevatedButton(
                 style: style,
@@ -165,7 +186,8 @@ class _buildBodyState extends State<_buildBody> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HUDdisplay()));
                 },
-                child: Icon(Icons.table_rows_outlined,
+                child: Icon(
+                  Icons.table_rows_outlined,
                   color: Color(0xffefefef),
                 )),
             ElevatedButton(
@@ -175,7 +197,8 @@ class _buildBodyState extends State<_buildBody> {
                     showBottomMenu = (showBottomMenu) ? false : true;
                   });
                 },
-                child: Icon(Icons.settings,
+                child: Icon(
+                  Icons.settings,
                   color: Color(0xffefefef),
                 )),
           ],
@@ -246,10 +269,10 @@ class _buildBodyState extends State<_buildBody> {
     return Container(
       child: Column(
         children: [
-          infoKeyValue("RPM", "750"),
-          infoKeyValue("Temp", "24'C"),
-          infoKeyValue("Load", "0%"),
-          infoKeyValue("Fuel", "42%"),
+          infoKeyValue("RPM", "${info.ENG_RPM}rpm"),
+          infoKeyValue("Temp", "${info.COOL_TMP}˚C"),
+          infoKeyValue("Load", "${info.ENG_LOAD}%"),
+          infoKeyValue("Fuel", "${info.FUEL_LVL}%"),
         ],
       ),
       decoration: BoxDecoration(

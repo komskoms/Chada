@@ -10,6 +10,7 @@ class mainList extends StatelessWidget {
     return Container(
       child: ListView(
         shrinkWrap: true,
+        scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(10),
         children: <Widget>[
           itemCard("1_speed", "SPEED", "${info.CUR_SPD}"),

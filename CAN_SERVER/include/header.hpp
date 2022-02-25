@@ -44,7 +44,7 @@ bool getBattery(SoftwareSerial &_HC06);
 ** CAN_protocol.cpp
 */
 void sendPid(unsigned char pid);
-bool printTimeout(char *pid, SoftwareSerial &_HC06) ;
+bool printTimeout(OBDPid pid, SoftwareSerial &_HC06) ;
 
 /*
 ** pid_list.cpp

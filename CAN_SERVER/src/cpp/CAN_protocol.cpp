@@ -13,10 +13,12 @@ void sendPid(unsigned char pid) {
 ** Function Name : printTimeout
 ** Description	 : print timeout message
 *******************************************************************************************/
-bool printTimeout(char *pid, SoftwareSerial &_HC06) {
-	Serial.print(pid);
-	Serial.println(" Pid Timeout");
-	_HC06.print(pid);
-	_HC06.println(" Pid Timeout");
+bool printTimeout(OBDPid pid, SoftwareSerial &_HC06) {
+	char buf[11];
+	sprintf(buf, "%d", pid);
+	String _pid = buf;
+
+	Serial.println(_pid + ":" + "Timeout");
+	_HC06.println(_pid + ":" + "Timeout");
 	return 0;
 }

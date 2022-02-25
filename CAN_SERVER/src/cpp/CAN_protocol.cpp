@@ -1,4 +1,5 @@
 #include "header.hpp"
+#include <cstdlib>
 
 /******************************************************************************************
 ** Function Name : sendPid
@@ -14,9 +15,14 @@ void sendPid(unsigned char pid) {
 ** Description	 : print timeout message
 *******************************************************************************************/
 bool printTimeout(char *pid, SoftwareSerial &_HC06) {
-	Serial.print(pid);
-	Serial.println(" Pid Timeout");
-	_HC06.print(pid);
-	_HC06.println(" Pid Timeout");
+	String _pid = pid;
+// for testing
+	int randomNumber = rand();
+	Serial.println(_pid + " : " + randomNumber);
+	_HC06.println(_pid + ":" + randomNumber);
+
+// /* these are the original code */
+// 	Serial.println(_pid + " : " + "Timeout");
+// 	_HC06.println(_pid + ":" + "Timeout");
 	return 0;
 }

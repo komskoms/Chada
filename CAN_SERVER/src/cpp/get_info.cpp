@@ -5,6 +5,8 @@
 ** Description	 : get engine RPM
 *******************************************************************************************/
 bool getEngineRPM(SoftwareSerial &_HC06) {
+	String pidName = "ENGINE_SPEED";
+	
 	sendPid(ENGINE_SPEED);
 	unsigned long timeout_ = millis();
 
@@ -22,14 +24,14 @@ bool getEngineRPM(SoftwareSerial &_HC06) {
 				// Serial.println(buf[4]);
 				rpm = buf[3] * 16 * 16;
 				rpm += buf[4];
-				Serial.print("Engine RPM : ");
-				Serial.println(rpm / 4);
-				_HC06.print(rpm / 4);
+				Serial.println(pidName + " : " + (rpm / 4));
+				_HC06.println(pidName + ":" + (rpm / 4));
+				
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Engine RPM", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }
 
 /******************************************************************************************
@@ -37,6 +39,8 @@ bool getEngineRPM(SoftwareSerial &_HC06) {
 ** Description	 : get coolant temperature
 *******************************************************************************************/
 bool getCoolantTemperature(SoftwareSerial &_HC06) {
+	String pidName = "ENGINE_COOLANT_TEMPERATURE";
+
 	sendPid(ENGINE_COOLANT_TEMPERATURE);
 	unsigned long timeout_ = millis();
 
@@ -50,14 +54,13 @@ bool getCoolantTemperature(SoftwareSerial &_HC06) {
 			if (buf[1] == 0x41) {
 				// Serial.println(buf[3]);
 				temp = buf[3] - 40;
-				Serial.print("Coolant Temperature : ");
-				Serial.println(temp);
-				_HC06.print(temp);
+				Serial.println(pidName + " : " + (temp));
+				_HC06.println(pidName + ":" + (temp));
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Coolant Temperature", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }
 
 /******************************************************************************************
@@ -65,6 +68,8 @@ bool getCoolantTemperature(SoftwareSerial &_HC06) {
 ** Description	 : get engine load(return percentage)
 *******************************************************************************************/
 bool getEngineLoad(SoftwareSerial &_HC06) {
+	String pidName = "CALCULATED_ENGINE_LOAD";
+
 	sendPid(CALCULATED_ENGINE_LOAD);
 	unsigned long timeout_ = millis();
 
@@ -78,14 +83,13 @@ bool getEngineLoad(SoftwareSerial &_HC06) {
 			if (buf[1] == 0x41) {
 				// Serial.println(buf[3]);
 				load = (buf[3] / 255.0) * 100.0;
-				Serial.print("Engine Load : ");
-				Serial.println(load);
-				_HC06.print(load);
+				Serial.println(pidName + " : " + (load));
+				_HC06.println(pidName + ":" + (load));
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Engine Load", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }
 
 /******************************************************************************************
@@ -93,6 +97,8 @@ bool getEngineLoad(SoftwareSerial &_HC06) {
 ** Description	 : get fuel level(return percentage)
 *******************************************************************************************/
 bool getFuelLevel(SoftwareSerial &_HC06) {
+	String pidName = "FUEL_TANK_LEVEL_INPUT";
+
 	sendPid(FUEL_TANK_LEVEL_INPUT);
 	unsigned long timeout_ = millis();
 
@@ -106,14 +112,13 @@ bool getFuelLevel(SoftwareSerial &_HC06) {
 			if (buf[1] == 0x41) {
 				// Serial.println(buf[3]);
 				fuel = (buf[3] / 255.0) * 100.0;
-				Serial.print("Fuel Level : ");
-				Serial.println(fuel);
-				_HC06.print(fuel);
+				Serial.println(pidName + " : " + (fuel));
+				_HC06.println(pidName + ":" + (fuel));
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Fuel level", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }
 
 /******************************************************************************************
@@ -121,6 +126,8 @@ bool getFuelLevel(SoftwareSerial &_HC06) {
 ** Description	 : get vehicle speed
 *******************************************************************************************/
 bool getSpeed(SoftwareSerial &_HC06) {
+	String pidName = "VEHICLE_SPEED";
+
 	sendPid(VEHICLE_SPEED);
 	unsigned long timeout_ = millis();
 
@@ -132,14 +139,13 @@ bool getSpeed(SoftwareSerial &_HC06) {
 			CAN.readMsgBuf(&len, buf);
 			if (buf[1] == 0x41) {
 				// Serial.println(buf[3]);
-				Serial.print("Vehicle Speed : ");
-				Serial.println(buf[3]);
-				_HC06.print(buf[3]);
+				Serial.println(pidName + " : " + (buf[3]));
+				_HC06.println(pidName + ":" + (buf[3]));
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Vehicle Speed", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }
 
 /******************************************************************************************
@@ -147,7 +153,9 @@ bool getSpeed(SoftwareSerial &_HC06) {
 ** Description	 : get battery
 *******************************************************************************************/
 bool getBattery(SoftwareSerial &_HC06) {
-	sendPid(164);
+	String pidName = "BATTERY_MAYBE";
+
+	sendPid(BATTERY_MAYBE);
 	unsigned long timeout_ = millis();
 	int battery;
 
@@ -161,12 +169,11 @@ bool getBattery(SoftwareSerial &_HC06) {
 				// Serial.println(buf[3]);
 				// Serial.println(buf[4]);
 				battery = (256 * buf[3] + buf[4]) / 1000.0;
-				Serial.print("Battery : ");
-				Serial.println(battery);
-				_HC06.print(battery);
+				Serial.println(pidName + " : " + (battery));
+				_HC06.println(pidName + ":" + (battery));
 				return 1;
 			}
 		}
 	}
-	return printTimeout((char *)"Battery", _HC06);
+	return printTimeout((char *)pidName.c_str(), _HC06);
 }

@@ -15,8 +15,8 @@
 #define BLUETOOTH_SPEED		9600
 #define SPI_CS_PIN			9
 #define CAN_ID_PID			0x7DF
-#define HC06_RX             10
 #define HC06_TX             11
+#define HC06_RX             10
 
 static MCP_CAN CAN(SPI_CS_PIN);
 static OBDPower obd(A3);

@@ -66,7 +66,7 @@ class _buildBodyState extends State<_buildBody> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+  double height = MediaQuery.of(context).size.height;
 
     if (showBottomMenu == true) {
       return SafeArea(
@@ -123,11 +123,12 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainUpper(BuildContext context) {
     return Container(
+        height: MediaQuery.of(context).size.height * 0.3,
         color: Colors.red,
         margin: EdgeInsets.only(top: 20, right: 20, left: 20),
         child: Container(
             child: Row(
-          //crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               flex: 1,
@@ -208,16 +209,16 @@ class _buildBodyState extends State<_buildBody> {
   }
 
   Widget mainStatus(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            child: Column(
-          children: [mainCarStatus(context), mainSelector(context)],
-        )),
-      ],
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
+    return Container(
+          child: Column(
+            children: [
+              mainCarStatus(context),
+              mainSelector(context)
+            ],
+          ),
+      //crossAxisAlignment: CrossAxisAlignment.start,
+      //mainAxisAlignment: MainAxisAlignment.center,
+      //mainAxisSize: MainAxisSize.max,
     );
   }
 
@@ -246,8 +247,9 @@ class _buildBodyState extends State<_buildBody> {
   Widget mainSelector(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(18),
-      margin: EdgeInsets.only(top: 5, bottom: 10, left: 15, right: 15),
+      margin: EdgeInsets.only(top: 5, bottom: 0, left: 15, right: 15),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             child: Text(
@@ -258,7 +260,6 @@ class _buildBodyState extends State<_buildBody> {
           ),
           Image.asset('assets/images/1_speed.png', fit: BoxFit.contain),
         ],
-        mainAxisAlignment: MainAxisAlignment.center,
       ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
@@ -267,6 +268,7 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainSimpleInfo(BuildContext context) {
     return Container(
+      //height: MediaQuery.of(context).size.height * 1,
       child: Column(
         children: [
           infoKeyValue("RPM", "${info.ENG_RPM}rpm"),

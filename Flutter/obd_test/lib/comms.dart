@@ -37,6 +37,10 @@ class carInfo {
 
   carInfo();
 
+/******************************************************************************************
+** Function Name : randomize
+** Description	 : (테스트용)변수를 임의 값으로 변경
+*******************************************************************************************/
   void randomize() {
     var rand = Random();
 
@@ -49,6 +53,10 @@ class carInfo {
     battery_charge = 42;
   }
 
+/******************************************************************************************
+** Function Name : switchTest
+** Description	 : (테스트용)OBD와 통신하여 갱신할 PID를 지정함
+*******************************************************************************************/
   void switchTest() {
     _scanPID[OBDPid.ENGINE_SPEED.index] = true;
     _scanPID[OBDPid.CALCULATED_ENGINE_LOAD.index] = true;
@@ -58,6 +66,10 @@ class carInfo {
     _scanPID[OBDPid.THROTTLE_POSITION.index] = true;
   }
 
+/******************************************************************************************
+** Function Name : scanAll
+** Description	 : 설정 화면에서 OBD를 연결했을 때, 지정된 PID 에 대한 요청을 보냄
+*******************************************************************************************/
   void scanAll() async {
     int i = 0;
 
@@ -67,6 +79,11 @@ class carInfo {
     }
   }
 
+/******************************************************************************************
+** Function Name : scanItem
+** Description	 : scanAll의 하위 함수
+                    -> 각 PID에 대한 요청을 처리
+*******************************************************************************************/
   void scanItem(int pidIndex, Function scanMethod) {
     if (_scanPID[pidIndex] == false) {
       _values[pidIndex] = -1;
@@ -75,6 +92,11 @@ class carInfo {
     }
   }
 
+/******************************************************************************************
+** Function Name : _scanMethod
+** Description	 : PID 요청을 처리하는 방식 정의
+                    -> OBD가 연결됐는지 확인 후, 규칙에 따라 _sendMessage 호출
+*******************************************************************************************/
   int _scanMethod(int pidIndex) {
     if (_server == null) {
       print("Tried scan without being connected to OBD");
@@ -86,6 +108,11 @@ class carInfo {
     }
   }
 
+/******************************************************************************************
+** Function Name : startComm
+** Description	 : 설정에서 OBD를 연결하면 작동하는 함수
+                    -> 블루투스 연결 작업 일체를 처리
+*******************************************************************************************/
   void startComm(BuildContext context, BluetoothDevice server) {
     _server = server;
 
@@ -113,6 +140,10 @@ class carInfo {
     });
   }
 
+/******************************************************************************************
+** Function Name : dispose
+** Description	 : 블루투스 연결 해제 기능
+*******************************************************************************************/
   void dispose() {
     // Avoid memory leak (`setState` after dispose) and disconnect
     if (_connection != null) {
@@ -124,10 +155,19 @@ class carInfo {
     }
   }
 
+/******************************************************************************************
+** Function Name : printMessage
+** Description	 : (테스트용)printReceived의 하위 함수
+                    -> OBD에서 받아와 리스트에 저장된 메시지 출력
+*******************************************************************************************/
   void printMessage(_message msg) {
     print(msg.whom + ': ' + msg.text);
   }
 
+/******************************************************************************************
+** Function Name : printReceived
+** Description	 : (테스트용)OBD에서 받아와 리스트에 저장된 메시지 출력, 출력한만큼 리스트에서 삭제
+*******************************************************************************************/
   void printReceived() {
     int size = messages.length;
 
@@ -137,6 +177,10 @@ class carInfo {
     messages.removeRange(0, size);
   }
 
+/******************************************************************************************
+** Function Name : setValueByMessage
+** Description	 : OBD에서 받아온 메시지에 따라 앱에 표시할 값을 수정
+*******************************************************************************************/
   _message setValueByMessage(_message msg) {
     int val;
 
@@ -155,6 +199,11 @@ class carInfo {
     return msg;
   }
 
+/******************************************************************************************
+** Function Name : _onDataReceived
+** Description	 : OBD에서 블루투스 시리얼 스트림으로 들어온 입력이 있을 때 작동할 함수
+                    -> /n/r 단위로 끊어서 처리
+*******************************************************************************************/
   void _onDataReceived(Uint8List data) {
     String _rawMessage = '';
     // Allocate buffer for parsed data
@@ -199,7 +248,10 @@ class carInfo {
           : _messageBuffer + dataString);
     }
   }
-
+/******************************************************************************************
+** Function Name : _sendMessage
+** Description	 : 블루투스 시리얼 스트림을 통해 OBD로 text 전송
+*******************************************************************************************/
   void _sendMessage(String text) async {
     text = text.trim();
     // textEditingController.clear();

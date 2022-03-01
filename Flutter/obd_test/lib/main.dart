@@ -124,7 +124,7 @@ class _buildBodyState extends State<_buildBody> {
   Widget mainUpper(BuildContext context) {
     return Container(
         height: MediaQuery.of(context).size.height * 0.3,
-        color: Colors.red,
+        //color: Colors.red,
         margin: EdgeInsets.only(top: 20, right: 20, left: 20),
         child: Container(
           child: Row(
@@ -211,7 +211,7 @@ class _buildBodyState extends State<_buildBody> {
   Widget mainUpperRight(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3 * 0.95,
-      color: Colors.blue,
+      //color: Colors.blue,
       child: Row(
         children: [
           Expanded(
@@ -229,7 +229,7 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget mainCar(BuildContext context) {
     return Container(
-      color: Colors.green,
+      //color: Colors.green,
       height: MediaQuery.of(context).size.height * 0.3 * 0.9,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -271,14 +271,14 @@ class _buildBodyState extends State<_buildBody> {
   Widget mainSelector(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5,
-      // padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 25, right: 25),
       // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
+            //margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
             child: Text(
               "Selected",
               style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
@@ -316,6 +316,7 @@ class _buildBodyState extends State<_buildBody> {
 
   Widget infoKeyValue(String _key, String _val) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.25,
       child: Row(
         children: [
           Expanded(

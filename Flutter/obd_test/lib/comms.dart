@@ -29,9 +29,9 @@ class carInfo {
   static String _messageBuffer = '';
 
   static List<bool> _scanPID =
-      List.generate(OBDPid.LAST_INDEX.index, (index) => false);
+      List.generate(PidName.length, (index) => false);
   static List<int> _values =
-      List.generate(OBDPid.LAST_INDEX.index, (index) => 0);
+      List.generate(PidName.length, (index) => 0);
 
   static int battery_charge = 0;
 
@@ -73,7 +73,7 @@ class carInfo {
   void scanAll() async {
     int i = 0;
 
-    while (i < OBDPid.LAST_INDEX.index) {
+    while (i < PidName.length) {
       await scanItem(i++, _scanMethod);
       Future.delayed(Duration(milliseconds: 100));
     }
@@ -102,7 +102,6 @@ class carInfo {
       print("Tried scan without being connected to OBD");
       return -2;
     } else {
-      battery_charge = 90;
       _sendMessage(PidName[pidIndex]);
       return 42;
     }

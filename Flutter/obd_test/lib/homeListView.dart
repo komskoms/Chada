@@ -85,6 +85,7 @@ class _mainListState extends State<mainList> {
               height: 20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
+                // border: Border.all(color: Color(0xff7EBCB3), width: 2),
                 border: Border.all(color: Color(0xff7EBCB3), width: 2),
               ),
             ),
@@ -94,7 +95,7 @@ class _mainListState extends State<mainList> {
     );
   }
 
-  
+
 
   String _selectUnit(String PIDname) {
     switch (PIDname) {

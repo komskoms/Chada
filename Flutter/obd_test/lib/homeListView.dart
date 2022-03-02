@@ -22,8 +22,7 @@ class mainList extends StatelessWidget {
   }
 
   Widget itemCard(String image_name, String title, String PIDname) {
-    assert(PidName.indexOf(PIDname) != -1,
-        "Error: itemCard: PIDname [$PIDname] not found");
+    assert(PidName.indexOf(PIDname) != -1, "Error: itemCard: PIDname [$PIDname] not found");
     carInfo info = carInfo();
     int _value = info.getValue[PidName.indexOf(PIDname)];
     bool _toggleMarker = info.getScanFlag[PidName.indexOf(PIDname)];

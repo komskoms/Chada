@@ -1,4 +1,7 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'OBD_PID.dart';
+import 'comms.dart';
 
 class HUDdisplay extends StatefulWidget {
   const HUDdisplay({Key key}) : super(key: key);
@@ -12,20 +15,66 @@ class _HUDdisplayState extends State<HUDdisplay> {
     double height = MediaQuery.of(context).size.height;
     double witdh = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-        onDoubleTap: () => Navigator.pop(context),
-        child: Scaffold(
-          body: PageView(
-            children: [
-              split05(context),
-              split04(context),
-              split03(context),
-              split02(context),
-            ],
-          ),
-        ));
+    return OrientationBuilder(builder: (context, orientation) {
+      return GestureDetector(
+          onDoubleTap: () => Navigator.pop(context),
+          child: Scaffold(
+              body: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(math.pi),
+            child: PageView(
+              children: [
+                showBox(context, orientation, "Speed", "VEHICLE_SPEED"),
+                // split05(context),
+                // split04(context),
+                // split03(context),
+                // split02(context),
+              ],
+            ),
+          )));
+    });
   }
 
+  Widget showBox(BuildContext context, Orientation orientation, String title,
+      String PIDname) {
+    carInfo info = carInfo();
+
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
+            alignment: Alignment.topLeft,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Color(0xff6161F5),
+                width: 1,
+              ),
+            ),
+            child: Text(
+              "$title",
+              style: TextStyle(
+                // fontSize: MediaQuery.of(context).size.height * 0.3,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Container(
+              child: Text(
+            "${info.getValue[PidName.indexOf(PIDname)]}",
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.3,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.start,
+          )),
+          Container(child: Text("${info.selectUnit(PIDname)}")),
+        ],
+      )
+    );
+  }
 // 5분할 화면
 
   Widget split05(BuildContext context) {
@@ -41,8 +90,8 @@ class _HUDdisplayState extends State<HUDdisplay> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                      color: Color(0xff6161F5),
-                      width: 1,
+                    color: Color(0xff6161F5),
+                    width: 1,
                   ),
                 ),
                 child: Row(

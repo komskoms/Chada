@@ -69,7 +69,7 @@ class carInfo {
 
 /******************************************************************************************
 ** Function Name : selectUnit
-** Description	 : PIDname에 맞는 적젏한 단위를 리턴
+** Description	 : PIDname의 반환값에 맞는 적젏한 단위를 반환
 *******************************************************************************************/
   String selectUnit(String PIDname) {
     switch (PIDname) {
@@ -80,6 +80,10 @@ class carInfo {
       case "BATTERY_CHARGE":
         return "%";
       case "THROTTLE_POSITION":
+        return "%";
+      case "CALCULATED_ENGINE_LOAD":
+        return "%";
+      case "FUEL_TANK_LEVEL_INPUT":
         return "%";
       default:
         return '';
@@ -287,12 +291,6 @@ class carInfo {
     }
   }
 
-  get ENG_RPM => _values[OBDPid.ENGINE_SPEED.index];
-  get ENG_LOAD => _values[OBDPid.CALCULATED_ENGINE_LOAD.index];
-  get COOL_TMP => _values[OBDPid.ENGINE_COOLANT_TEMPERATURE.index];
-  get FUEL_LVL => _values[OBDPid.FUEL_TANK_LEVEL_INPUT.index];
-  get CUR_SPD => _values[OBDPid.VEHICLE_SPEED.index];
-  get ACCEL => _values[OBDPid.THROTTLE_POSITION.index];
   get getValue => _values;
   get getScanFlag => _scanPID;
   get BAT_CHG => battery_charge;

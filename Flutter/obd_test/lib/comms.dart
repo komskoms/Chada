@@ -24,6 +24,7 @@ class carInfo {
   static bool _connected = false;
   static bool _scanning = false;
   static bool _disconnecting = false;
+  static bool _OBDreceiving = false;
 
   static List<_message> messages = List<_message>.empty(growable: true);
   static String _messageBuffer = '';
@@ -62,8 +63,9 @@ class carInfo {
     int i = 0;
 
     while (i < OBDPid.LAST_INDEX.index) {
-      await scanItem(i++, _scanMethod);
-      Future.delayed(Duration(milliseconds: 100));
+      scanItem(i++, _scanMethod);
+      // await _connection.output.allSent;
+      await Future.delayed(Duration(milliseconds: 500));
     }
   }
 
@@ -73,6 +75,16 @@ class carInfo {
     } else {
       scanMethod(pidIndex);
     }
+  }
+
+  void bufferTest() {
+    int i = 0;
+
+    print("Buffer Test start.");
+    while (i++ < 1) {
+      _sendMessage("1");
+    }
+    print("buffer Test done.");
   }
 
   int _scanMethod(int pidIndex) {
@@ -189,8 +201,13 @@ class carInfo {
           ? _messageBuffer.substring(
               0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString.substring(0, index);
-      messages
-          .add(setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
+      /* When OBD sends ACK */
+      if (_rawMessage == "THEFLAG") {
+        _OBDreceiving = false;
+        return;
+      }
+      messages.add(
+          setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
       _messageBuffer = dataString.substring(index);
     } else {
       _messageBuffer = (backspacesCounter > 0
@@ -206,10 +223,13 @@ class carInfo {
 
     if (text.length > 0) {
       try {
+        while (_OBDreceiving == true) {}
+        _OBDreceiving = true;
         _connection.output.add(Uint8List.fromList(utf8.encode(text + "\r\n")));
         await _connection.output.allSent;
       } catch (e) {
         // Ignore error, but notify state
+        _OBDreceiving = false;
         print("error: $text");
       }
     }

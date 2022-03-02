@@ -3,9 +3,14 @@ import 'package:obd_test/comms.dart';
 import 'package:obd_test/main.dart';
 import 'OBD_PID.dart';
 
-class mainList extends StatelessWidget {
+class mainList extends StatefulWidget {
   @override
-  Widget build(context) {
+  State<mainList> createState() => _mainListState();
+}
+
+class _mainListState extends State<mainList> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       child: ListView(
         shrinkWrap: true,
@@ -31,7 +36,10 @@ class mainList extends StatelessWidget {
 
     return GestureDetector(
         onTap: () {
-          _toggleMarker = (_toggleMarker == true) ? false : true;
+          setState(() {
+            _toggleMarker = (_toggleMarker == true) ? false : true;
+            info.getScanFlag[PidName.indexOf(PIDname)] = _toggleMarker;
+          });
         },
         child: Container(
           child: Row(
@@ -81,7 +89,9 @@ class mainList extends StatelessWidget {
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                  color: (_toggleMarker == true) ? Color(0xff7EBCB3) : Color(0x00000000),
+                  color: (_toggleMarker == true)
+                      ? Color(0xff7EBCB3)
+                      : Color(0x00000000),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: Color(0xff7EBCB3),

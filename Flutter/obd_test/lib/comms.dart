@@ -238,8 +238,8 @@ class carInfo {
           ? _messageBuffer.substring(
               0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString.substring(0, index);
-      messages
-          .add(setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
+      messages.add(
+          setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
       _messageBuffer = dataString.substring(index);
     } else {
       _messageBuffer = (backspacesCounter > 0
@@ -248,6 +248,7 @@ class carInfo {
           : _messageBuffer + dataString);
     }
   }
+
 /******************************************************************************************
 ** Function Name : _sendMessage
 ** Description	 : 블루투스 시리얼 스트림을 통해 OBD로 text 전송
@@ -273,6 +274,8 @@ class carInfo {
   get FUEL_LVL => _values[OBDPid.FUEL_TANK_LEVEL_INPUT.index];
   get CUR_SPD => _values[OBDPid.VEHICLE_SPEED.index];
   get ACCEL => _values[OBDPid.THROTTLE_POSITION.index];
+  get getValue => _values;
+  get getScanFlag => _scanPID;
   get BAT_CHG => battery_charge;
 
   get getServer => _server;

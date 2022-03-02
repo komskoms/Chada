@@ -72,34 +72,34 @@ class _buildBodyState extends State<_buildBody> {
       return SafeArea(
           child: Center(
               child: Stack(
-        children: [
-          Column(children: <Widget>[
-            mainUpper(context),
-            mainList(),
-          ]),
-          GestureDetector(
-              onTap: () {
-                setState(() {
-                  showBottomMenu = false;
-                });
-              },
-              child: AnimatedOpacity(
-                duration: Duration(milliseconds: 200),
-                opacity: (showBottomMenu) ? 1.0 : 0.0,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                  child: Container(
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                ),
-              )),
-          AnimatedPositioned(
-              curve: Curves.easeInOut,
-              duration: Duration(milliseconds: 200),
-              left: MediaQuery.of(context).size.width * 0.05,
-              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-              child: drawerForSetting())
-        ],
+                children: [
+                  Column(children: <Widget>[
+                    mainUpper(context),
+                    mainList(),
+                  ]),
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showBottomMenu = false;
+                        });
+                      },
+                      child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 200),
+                        opacity: (showBottomMenu) ? 1.0 : 0.0,
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                          child: Container(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
+                        ),
+                      )),
+                  AnimatedPositioned(
+                      curve: Curves.easeInOut,
+                      duration: Duration(milliseconds: 200),
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+                      child: drawerForSetting())
+                ],
       )));
     } else {
       return SafeArea(

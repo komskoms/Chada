@@ -3,7 +3,12 @@ import 'package:obd_test/comms.dart';
 import 'package:obd_test/main.dart';
 import 'OBD_PID.dart';
 
-class mainList extends StatelessWidget {
+class mainList extends StatefulWidget {
+  @override
+  State<mainList> createState() => _mainList();
+}
+
+class _mainList extends State<mainList> {
   @override
   Widget build(context) {
     return Container(
@@ -22,15 +27,19 @@ class mainList extends StatelessWidget {
   }
 
   Widget itemCard(String image_name, String title, String PIDname) {
-    assert(PidName.indexOf(PIDname) != -1, "Error: itemCard: PIDname [$PIDname] not found");
+    assert(PidName.indexOf(PIDname) != -1,
+        "Error: itemCard: PIDname [$PIDname] not found");
     carInfo info = carInfo();
     int _value = info.getValue[PidName.indexOf(PIDname)];
     bool _toggleMarker = info.getScanFlag[PidName.indexOf(PIDname)];
-    String _unit = _selectUnit(PIDname);
+    String _unit = info.selectUnit(PIDname);
 
     return GestureDetector(
         onTap: () {
-          _toggleMarker = (_toggleMarker == true) ? false : true;
+          setState(() {
+            _toggleMarker = (_toggleMarker == true) ? false : true;
+            info.getScanFlag[PidName.indexOf(PIDname)] = _toggleMarker;
+          });
         },
         child: Container(
           child: Row(
@@ -80,7 +89,9 @@ class mainList extends StatelessWidget {
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                  color: (_toggleMarker == true) ? Color(0xff7EBCB3) : Color(0x00000000),
+                  color: (_toggleMarker == true)
+                      ? Color(0xff7EBCB3)
+                      : Color(0x00000000),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: Color(0xff7EBCB3),
@@ -93,20 +104,6 @@ class mainList extends StatelessWidget {
         ));
   }
 
-  String _selectUnit(String PIDname) {
-    switch (PIDname) {
-      case "ENGINE_SPEED":
-        return "RPM";
-      case "VEHICLE_SPEED":
-        return "km/h";
-      case "BATTERY_CHARGE":
-        return "%";
-      case "THROTTLE_POSITION":
-        return "%";
-      default:
-        return '';
-    }
-  }
 }
   // itemCard("1_speed", "SPEED", "VEHICLE_SPEED"),
         //   itemCard("2_engine", "ENGINE", "ENGINE_SPEED"),

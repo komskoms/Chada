@@ -66,6 +66,26 @@ class carInfo {
     _scanPID[OBDPid.THROTTLE_POSITION.index] = true;
   }
 
+
+/******************************************************************************************
+** Function Name : selectUnit
+** Description	 : PIDname에 맞는 적젏한 단위를 리턴
+*******************************************************************************************/
+  String selectUnit(String PIDname) {
+    switch (PIDname) {
+      case "ENGINE_SPEED":
+        return "RPM";
+      case "VEHICLE_SPEED":
+        return "km/h";
+      case "BATTERY_CHARGE":
+        return "%";
+      case "THROTTLE_POSITION":
+        return "%";
+      default:
+        return '';
+    }
+  }
+
 /******************************************************************************************
 ** Function Name : scanAll
 ** Description	 : 설정 화면에서 OBD를 연결했을 때, 지정된 PID 에 대한 요청을 보냄

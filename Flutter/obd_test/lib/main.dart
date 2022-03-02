@@ -52,7 +52,6 @@ class _buildBodyState extends State<_buildBody> {
     // TODO: implement initState
     super.initState();
 
-    info.switchTest();
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (info.getServer != null) {

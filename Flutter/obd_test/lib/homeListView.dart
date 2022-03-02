@@ -32,7 +32,7 @@ class _mainListState extends State<mainList> {
     carInfo info = carInfo();
     int _value = info.getValue[PidName.indexOf(PIDname)];
     bool _toggleMarker = info.getScanFlag[PidName.indexOf(PIDname)];
-    String _unit = _selectUnit(PIDname);
+    String _unit = info.selectUnit(PIDname);
 
     return GestureDetector(
         onTap: () {
@@ -104,20 +104,6 @@ class _mainListState extends State<mainList> {
         ));
   }
 
-  String _selectUnit(String PIDname) {
-    switch (PIDname) {
-      case "ENGINE_SPEED":
-        return "RPM";
-      case "VEHICLE_SPEED":
-        return "km/h";
-      case "BATTERY_CHARGE":
-        return "%";
-      case "THROTTLE_POSITION":
-        return "%";
-      default:
-        return '';
-    }
-  }
 }
   // itemCard("1_speed", "SPEED", "VEHICLE_SPEED"),
         //   itemCard("2_engine", "ENGINE", "ENGINE_SPEED"),

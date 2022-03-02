@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'dart:async';
 
@@ -49,10 +50,8 @@ class _buildBodyState extends State<_buildBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    info.switchTest();
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (info.getServer != null) {
@@ -135,7 +134,7 @@ class _buildBodyState extends State<_buildBody> {
                 child: mainMenu(context),
               ),
               Expanded(
-                flex: 5,
+                flex: 3,
                 child: mainUpperRight(context),
             ),
             // Expanded(
@@ -147,17 +146,19 @@ class _buildBodyState extends State<_buildBody> {
   }
 
   Widget mainMenu(BuildContext context) {
+
     final ButtonStyle style = ElevatedButton.styleFrom(
       primary: Color(0xff6161F5),
+      minimumSize: Size(100.0, 50.0),
     );
 
     if (showMainMenu == false) {
       return Container(
         child: ElevatedButton(
           style: style,
-          child: Icon(
-            Icons.menu,
-            color: Color(0xffefefef),
+          child: Text(
+                "설 정",
+                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
           ),
           onPressed: () {
             setState(() {
@@ -171,37 +172,40 @@ class _buildBodyState extends State<_buildBody> {
         child: Column(
           children: [
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  setState(() {
-                    showMainMenu = false;
-                  });
-                },
-                child: Icon(
-                  Icons.close,
-                  color: Color(0xffefefef),
-                )),
+              style: style,
+              onPressed: () {
+                setState(() {
+                  showMainMenu = false;
+                });
+              },
+              child: Text(
+                "닫 기",
+                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
+              )),
+              SizedBox(height: 22,),
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HUDdisplay()));
-                },
-                child: Icon(
-                  Icons.table_rows_outlined,
-                  color: Color(0xffefefef),
-                )),
+              style: style,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HUDdisplay()));
+              },
+              child: Text(
+                "H U D",
+                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
+              )),
+              SizedBox(height: 22,),
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  setState(() {
-                    showBottomMenu = (showBottomMenu) ? false : true;
-                  });
-                },
-                child: Icon(
-                  Icons.settings,
-                  color: Color(0xffefefef),
-                )),
+              style: style,
+              onPressed: () {
+                setState(() {
+                  showBottomMenu = (showBottomMenu) ? false : true;
+                });
+              },
+              child: Text(
+                "블루투스",
+                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
+              )
+            ),
           ],
         ),
       );
@@ -211,92 +215,94 @@ class _buildBodyState extends State<_buildBody> {
   Widget mainUpperRight(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3 * 0.95,
+      margin: EdgeInsets.only(left: 30),
       //color: Colors.blue,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: mainCar(context),
-          ),
-          Expanded(
-            flex: 3,
+      // child: Row(
+      //   children: [
+      //     Expanded(
+      //       flex: 2,
+      //       child: mainCar(context),
+      //     ),
+      //     Expanded(
+      //       flex: 3,
             child: mainSimpleInfo(context),
-          ),
-        ],
-      ),
+      //   ),
+      //],
+      //),
     );
   }
+  
 
-  Widget mainCar(BuildContext context) {
-    return Container(
-      //color: Colors.green,
-      height: MediaQuery.of(context).size.height * 0.3 * 0.9,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          mainCarStatus(context),
-          mainSelector(context),
-      ]),
-      // decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
-    );
-  }
+  // Widget mainCar(BuildContext context) {
+  //   return Container(
+  //     //color: Colors.green,
+  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9,
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.end,
+  //       children: [
+  //         mainCarStatus(context),
+  //         mainSelector(context),
+  //     ]),
+  //     // decoration: BoxDecoration(
+  //     //     borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
+  //   );
+  // }
 
-  Widget mainCarStatus(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.4,
-      margin: EdgeInsets.only(
-        bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05,
-        top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05
-      ),
-      child: Column(
-        children: [
-          Container(
-            child: Text(
-              "My Car Status",
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            child: Icon(
-              Icons.face_sharp,
-              size: 60,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget mainCarStatus(BuildContext context) {
+  //   return Container(
+  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.4,
+  //     margin: EdgeInsets.only(
+  //       bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05,
+  //       top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //           child: Text(
+  //             "My Car Status",
+  //             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Icon(
+  //             Icons.face_sharp,
+  //             size: 60,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget mainSelector(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5,
-      padding: EdgeInsets.only(left: 25, right: 25),
-      // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-      child: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
-            //margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
-            child: Text(
-              "Selected",
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
-            child: Image.asset(
-              'assets/images/1_speed.png',
-              fit: BoxFit.contain,
-            ),
-          ),
-        ], 
-      ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
-    );
-  }
+  // Widget mainSelector(BuildContext context) {
+  //   return Container(
+  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5,
+  //     padding: EdgeInsets.only(left: 25, right: 25),
+  //     // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //           height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
+  //           padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
+  //           //margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
+  //           child: Text(
+  //             "Selected",
+  //             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         Container(
+  //           height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
+  //           child: Image.asset(
+  //             'assets/images/1_speed.png',
+  //             fit: BoxFit.contain,
+  //           ),
+  //         ),
+  //       ], 
+  //     ),
+  //     decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
+  //   );
+  // }
 
   Widget mainSimpleInfo(BuildContext context) {
     return Container(
@@ -324,10 +330,10 @@ class _buildBodyState extends State<_buildBody> {
               child: Container(
                 child: Text(
                   _key,
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(1.0, 0.25),
               )),
           Expanded(
             flex: 2,
@@ -337,7 +343,7 @@ class _buildBodyState extends State<_buildBody> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.start,
               ),
-              alignment: AlignmentDirectional(0.5, 0.0),
+              alignment: AlignmentDirectional(0.1, 0.25),
             ),
           ),
         ],

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:obd_test/OBD_PID.dart';
 import 'package:obd_test/bottomDrawer.dart';
 import 'HUDscreen.dart';
 import 'homeListView.dart';
@@ -52,7 +53,9 @@ class _buildBodyState extends State<_buildBody> {
   void initState() {
     super.initState();
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    info.switchTest();
+
+    Timer.periodic(Duration(seconds: 2), (timer) {
       setState(() {
         if (info.getServer != null) {
           info.scanAll();
@@ -309,10 +312,10 @@ class _buildBodyState extends State<_buildBody> {
       height: MediaQuery.of(context).size.height * 0.3 * 0.9,
       child: Column(
         children: [
-          infoKeyValue("RPM", "${info.ENG_RPM}rpm"),
-          infoKeyValue("Temp", "${info.COOL_TMP}˚C"),
-          infoKeyValue("Load", "${info.ENG_LOAD}%"),
-          infoKeyValue("Fuel", "${info.FUEL_LVL}%"),
+          infoKeyValue("RPM", "${info.getValue[PidName.indexOf("ENGINE_SPEED")]} rpm"),
+          infoKeyValue("Temp", "${info.getValue[PidName.indexOf("ENGINE_COOLANT_TEMPERATURE")]} ˚C"),
+          infoKeyValue("Load", "${info.getValue[PidName.indexOf("CALCULATED_ENGINE_LOAD")]} %"),
+          infoKeyValue("Fuel", "${info.getValue[PidName.indexOf("FUEL_TANK_LEVEL_INPUT")]} %"),
         ],
       ),
       decoration: BoxDecoration(

@@ -16,13 +16,13 @@ void sendPid(unsigned char pid) {
 *******************************************************************************************/
 bool printTimeout(char *pid, SoftwareSerial &_HC06) {
 	String _pid = pid;
-// for testing
-	int randomNumber = rand();
-	Serial.println(_pid + " : " + randomNumber);
-	_HC06.println(_pid + ":" + randomNumber);
+// /* for testing */
+// 	int randomNumber = rand();
+// 	Serial.println(_pid + " : " + randomNumber);
+// 	_HC06.println(_pid + ":" + randomNumber);
 
-// /* these are the original code */
-// 	Serial.println(_pid + " : " + "Timeout");
-// 	_HC06.println(_pid + ":" + "Timeout");
+/* these are the original code */
+	Serial.println(_pid + " : " + "Timeout");
+	_HC06.println(_pid + ":" + "Timeout");
 	return 0;
 }

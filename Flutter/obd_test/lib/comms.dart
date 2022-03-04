@@ -28,10 +28,8 @@ class carInfo {
   static List<_message> messages = List<_message>.empty(growable: true);
   static String _messageBuffer = '';
 
-  static List<bool> _scanPID =
-      List.generate(PidName.length, (index) => false);
-  static List<int> _values =
-      List.generate(PidName.length, (index) => 0);
+  static List<bool> _scanPID = List.generate(PidName.length, (index) => false);
+  static List<int> _values = List.generate(PidName.length, (index) => 0);
 
   static int battery_charge = 0;
 
@@ -66,10 +64,9 @@ class carInfo {
     _scanPID[OBDPid.THROTTLE_POSITION.index] = true;
   }
 
-
 /******************************************************************************************
 ** Function Name : selectUnit
-** Description	 : PIDname에 맞는 적젏한 단위를 리턴
+** Description	 : PIDname의 반환값에 맞는 적젏한 단위를 반환
 *******************************************************************************************/
   String selectUnit(String PIDname) {
     switch (PIDname) {
@@ -80,6 +77,10 @@ class carInfo {
       case "BATTERY_CHARGE":
         return "%";
       case "THROTTLE_POSITION":
+        return "%";
+      case "CALCULATED_ENGINE_LOAD":
+        return "%";
+      case "FUEL_TANK_LEVEL_INPUT":
         return "%";
       default:
         return '';
@@ -95,7 +96,6 @@ class carInfo {
 
     while (i < PidName.length) {
       await scanItem(i++, _scanMethod);
-      Future.delayed(Duration(milliseconds: 100));
     }
   }
 
@@ -109,6 +109,7 @@ class carInfo {
       _values[pidIndex] = -1;
     } else {
       scanMethod(pidIndex);
+      Future.delayed(Duration(seconds: 3));
     }
   }
 
@@ -208,9 +209,7 @@ class carInfo {
     } else {
       val = int.parse(msg.text);
     }
-    if (msg.whom == "BATTERY_MAYBE") {
-      battery_charge = val;
-    } else if (PidName.indexOf(msg.whom) == -1) {
+    if (PidName.indexOf(msg.whom) == -1) {
       print("CommError: respond PID is not available");
     } else {
       _values[PidName.indexOf(msg.whom)] = val;
@@ -259,7 +258,8 @@ class carInfo {
           : _messageBuffer + dataString.substring(0, index);
       messages.add(
           setValueByMessage(_message.fromList(_rawMessage.trim().split(":"))));
-      _messageBuffer = dataString.substring(index);
+      // _messageBuffer = dataString.substring(index);
+      _messageBuffer = '';
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
@@ -287,12 +287,6 @@ class carInfo {
     }
   }
 
-  get ENG_RPM => _values[OBDPid.ENGINE_SPEED.index];
-  get ENG_LOAD => _values[OBDPid.CALCULATED_ENGINE_LOAD.index];
-  get COOL_TMP => _values[OBDPid.ENGINE_COOLANT_TEMPERATURE.index];
-  get FUEL_LVL => _values[OBDPid.FUEL_TANK_LEVEL_INPUT.index];
-  get CUR_SPD => _values[OBDPid.VEHICLE_SPEED.index];
-  get ACCEL => _values[OBDPid.THROTTLE_POSITION.index];
   get getValue => _values;
   get getScanFlag => _scanPID;
   get BAT_CHG => battery_charge;

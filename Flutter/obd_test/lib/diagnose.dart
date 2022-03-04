@@ -27,44 +27,43 @@ class _diagnoseState extends State<diagnose> {
           Container(
             color: Colors.orange,
             height: MediaQuery.of(context).size.height * 0.1,
+            child: Text(
+              "진단 중...",
+              textAlign: TextAlign.center,
+            ),
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
             color: Colors.blue,
             child: ListView(
               shrinkWrap: true,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3 * 0.3,
-                  color: Colors.amber,
-                  child: Text("data"),
-                ),
-                Container(
-                  color: Colors.amber,
-                  child: Text("data"),
-                ),
-                Container(
-                  color: Colors.amber,
-                  child: Text("data"),
-                ),
-                Container(
-                  color: Colors.amber,
-                  child: Text("data"),
-                ),
-                Container(
-                  color: Colors.amber,
-                  child: Text("data"),
-                ),
-              ],
+              children: <Widget>[
+                dtcCode("dtc code name"),
+                dtcCode("dtc code name"),
+                dtcCode("dtc code name"),
+              ]
             ),
-          ),
+          ), 
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
             color: Colors.red,
-            child: ElevatedButton(),
+            child: ButtonBar(),
           ),
         ],
       ),
     ));
+  }
+
+  Widget dtcCode(String dtcName) {
+    return Center(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.3 * 0.2,
+        color: Colors.amber,
+        child: Text(
+          dtcName,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
   }
 }

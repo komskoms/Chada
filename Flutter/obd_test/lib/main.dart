@@ -182,7 +182,7 @@ class _buildBodyState extends State<_buildBody> {
                 "닫 기",
                 style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
               )),
-              SizedBox(height: 22,),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.3 * 0.05,),
             ElevatedButton(
               style: style,
               onPressed: () {
@@ -193,7 +193,7 @@ class _buildBodyState extends State<_buildBody> {
                 "H U D",
                 style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
               )),
-              SizedBox(height: 22,),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.3 * 0.05,),
             ElevatedButton(
               style: style,
               onPressed: () {

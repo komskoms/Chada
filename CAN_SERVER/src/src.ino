@@ -24,7 +24,8 @@ void loop() {
 	if (HC06.available() > 0) {
 		String request = HC06.readStringUntil('\n');
 		std::string str = request.c_str();
-		Serial.println(request.c_str());
+		Serial.print("Message form Bluetooth : ");
+		Serial.println(request);
 		findPid(pid_list, str, HC06);
 	}
 	else

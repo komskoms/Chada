@@ -17,9 +17,10 @@
 #define CAN_ID_PID			0x7DF
 #define HC06_TX             11
 #define HC06_RX             10
+#define ASSERT(a)			while (!a) ;
 
-static MCP_CAN CAN(SPI_CS_PIN);
-static OBDPower obd(A3);
+MCP_CAN CAN(SPI_CS_PIN);
+OBDPower obd(A3);
 
 /*
 ** init.cpp

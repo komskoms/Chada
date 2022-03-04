@@ -103,7 +103,6 @@ class _mainListState extends State<mainList> {
           ),
         ));
   }
-
 }
   // itemCard("1_speed", "SPEED", "VEHICLE_SPEED"),
         //   itemCard("2_engine", "ENGINE", "ENGINE_SPEED"),

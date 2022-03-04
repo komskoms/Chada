@@ -8,6 +8,7 @@ import 'package:obd_test/bottomDrawer.dart';
 import 'HUDscreen.dart';
 import 'homeListView.dart';
 import 'comms.dart';
+import 'diagnose.dart';
 
 void main() => runApp(const MyApp());
 
@@ -74,34 +75,34 @@ class _buildBodyState extends State<_buildBody> {
       return SafeArea(
           child: Center(
               child: Stack(
-                children: [
-                  Column(children: <Widget>[
-                    mainUpper(context),
-                    mainList(),
-                  ]),
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          showBottomMenu = false;
-                        });
-                      },
-                      child: AnimatedOpacity(
-                        duration: Duration(milliseconds: 200),
-                        opacity: (showBottomMenu) ? 1.0 : 0.0,
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                          child: Container(
-                            color: Colors.white.withOpacity(0.2),
-                          ),
-                        ),
-                      )),
-                  AnimatedPositioned(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 200),
-                      left: MediaQuery.of(context).size.width * 0.05,
-                      bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-                      child: drawerForSetting())
-                ],
+        children: [
+          Column(children: <Widget>[
+            mainUpper(context),
+            mainList(),
+          ]),
+          GestureDetector(
+              onTap: () {
+                setState(() {
+                  showBottomMenu = false;
+                });
+              },
+              child: AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: (showBottomMenu) ? 1.0 : 0.0,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+              )),
+          AnimatedPositioned(
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 200),
+              left: MediaQuery.of(context).size.width * 0.05,
+              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+              child: drawerForSetting())
+        ],
       )));
     } else {
       return SafeArea(
@@ -129,16 +130,16 @@ class _buildBodyState extends State<_buildBody> {
         //color: Colors.red,
         margin: EdgeInsets.only(top: 20, right: 20, left: 20),
         child: Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: mainMenu(context),
-              ),
-              Expanded(
-                flex: 3,
-                child: mainUpperRight(context),
+            child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 1,
+              child: mainMenu(context),
+            ),
+            Expanded(
+              flex: 3,
+              child: mainUpperRight(context),
             ),
             // Expanded(
             //   flex: 3,
@@ -149,10 +150,10 @@ class _buildBodyState extends State<_buildBody> {
   }
 
   Widget mainMenu(BuildContext context) {
-
     final ButtonStyle style = ElevatedButton.styleFrom(
       primary: Color(0xff6161F5),
-      minimumSize: Size(100.0, 50.0),
+      minimumSize: Size(MediaQuery.of(context).size.width * 0.3,
+          MediaQuery.of(context).size.height * 0.3 * 0.17),
     );
 
     if (showMainMenu == false) {
@@ -160,8 +161,9 @@ class _buildBodyState extends State<_buildBody> {
         child: ElevatedButton(
           style: style,
           child: Text(
-                "설 정",
-                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
+            "설 정",
+            style: TextStyle(
+                color: Color(0xffefefef), fontWeight: FontWeight.bold),
           ),
           onPressed: () {
             setState(() {
@@ -175,40 +177,60 @@ class _buildBodyState extends State<_buildBody> {
         child: Column(
           children: [
             ElevatedButton(
-              style: style,
-              onPressed: () {
-                setState(() {
-                  showMainMenu = false;
-                });
-              },
-              child: Text(
-                "닫 기",
-                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
-              )),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.3 * 0.05,),
-            ElevatedButton(
-              style: style,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HUDdisplay()));
-              },
-              child: Text(
-                "H U D",
-                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
-              )),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.3 * 0.05,),
-            ElevatedButton(
-              style: style,
-              onPressed: () {
-                setState(() {
-                  showBottomMenu = (showBottomMenu) ? false : true;
-                });
-              },
-              child: Text(
-                "블루투스",
-                style: TextStyle(color:  Color(0xffefefef), fontWeight: FontWeight.bold),
-              )
+                style: style,
+                onPressed: () {
+                  setState(() {
+                    showMainMenu = false;
+                  });
+                },
+                child: Text(
+                  "닫 기",
+                  style: TextStyle(
+                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3 * 0.06,
             ),
+            ElevatedButton(
+                style: style,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => diagnose()));
+                },
+                child: Text(
+                  "차량진단",
+                  style: TextStyle(
+                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3 * 0.06,
+            ),
+            ElevatedButton(
+                style: style,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HUDdisplay()));
+                },
+                child: Text(
+                  "H U D",
+                  style: TextStyle(
+                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3 * 0.06,
+            ),
+            ElevatedButton(
+                style: style,
+                onPressed: () {
+                  setState(() {
+                    showBottomMenu = (showBottomMenu) ? false : true;
+                  });
+                },
+                child: Text(
+                  "블루투스",
+                  style: TextStyle(
+                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                )),
           ],
         ),
       );
@@ -228,13 +250,12 @@ class _buildBodyState extends State<_buildBody> {
       //     ),
       //     Expanded(
       //       flex: 3,
-            child: mainSimpleInfo(context),
+      child: mainSimpleInfo(context),
       //   ),
       //],
       //),
     );
   }
-  
 
   // Widget mainCar(BuildContext context) {
   //   return Container(
@@ -300,7 +321,7 @@ class _buildBodyState extends State<_buildBody> {
   //             fit: BoxFit.contain,
   //           ),
   //         ),
-  //       ], 
+  //       ],
   //     ),
   //     decoration: BoxDecoration(
   //         borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
@@ -312,10 +333,14 @@ class _buildBodyState extends State<_buildBody> {
       height: MediaQuery.of(context).size.height * 0.3 * 0.9,
       child: Column(
         children: [
-          infoKeyValue("RPM", "${info.getValue[PidName.indexOf("ENGINE_SPEED")]} rpm"),
-          infoKeyValue("Temp", "${info.getValue[PidName.indexOf("ENGINE_COOLANT_TEMPERATURE")]} ˚C"),
-          infoKeyValue("Load", "${info.getValue[PidName.indexOf("CALCULATED_ENGINE_LOAD")]} %"),
-          infoKeyValue("Fuel", "${info.getValue[PidName.indexOf("FUEL_TANK_LEVEL_INPUT")]} %"),
+          infoKeyValue(
+              "RPM", "${info.getValue[PidName.indexOf("ENGINE_SPEED")]} rpm"),
+          infoKeyValue("Temp",
+              "${info.getValue[PidName.indexOf("ENGINE_COOLANT_TEMPERATURE")]} ˚C"),
+          infoKeyValue("Load",
+              "${info.getValue[PidName.indexOf("CALCULATED_ENGINE_LOAD")]} %"),
+          infoKeyValue("Fuel",
+              "${info.getValue[PidName.indexOf("FUEL_TANK_LEVEL_INPUT")]} %"),
         ],
       ),
       decoration: BoxDecoration(

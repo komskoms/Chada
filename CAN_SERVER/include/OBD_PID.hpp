@@ -126,7 +126,7 @@ enum OBDPid
 	/*
 	** 0x60 ~ 0x6F
 	*/
-	BATTERY_MAYBE = 164
+	BATTERY_CHARGE = 164
 };
 
 #endif

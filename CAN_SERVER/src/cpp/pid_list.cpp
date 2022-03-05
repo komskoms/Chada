@@ -6,6 +6,9 @@
 *********************************************************************************************************/
 void inputPidList(std::vector<Pair> &pid_list, std::string name,
 					unsigned int pid, bool *func(SoftwareSerial &_HC06)) {
+	ASSERT(name.compare(""));
+	ASSERT(pid != 0);
+	ASSERT(func != 0);
 	Pair pair(name, pid, func);
 	pid_list.push_back(pair);
 }

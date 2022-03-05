@@ -54,8 +54,6 @@ class _buildBodyState extends State<_buildBody> {
   void initState() {
     super.initState();
 
-    info.switchTest();
-
     Timer.periodic(Duration(seconds: 1), (timer) async {
       setState(() {
         if (info.getServer != null) {

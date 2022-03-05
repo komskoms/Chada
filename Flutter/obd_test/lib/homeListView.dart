@@ -49,8 +49,7 @@ class _mainListState extends State<mainList> {
               width: 60,
               height: 60,
               padding: EdgeInsets.all(8),
-              margin:
-                  EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 10),
+              margin: EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Color(0xff7EBCB3),

@@ -56,13 +56,12 @@ class _buildBodyState extends State<_buildBody> {
 
     info.switchTest();
 
-    Timer.periodic(Duration(seconds: 2), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
       setState(() {
         if (info.getServer != null) {
           info.scanAll();
           info.printReceived();
         }
-        // info.randomize();
       });
     });
   }

@@ -23,10 +23,11 @@ void setup() {
 void loop() {
 	if (HC06.available() > 0) {
 		String request = HC06.readStringUntil('\n');
-		std::string str = request.c_str();
-		Serial.println(request.c_str());
-		findPid(pid_list, str, HC06);
+		// std::string str = request.c_str();
+		Serial.println(request);
+		// findPid(pid_list, request.c_str(), HC06);
 	}
 	else
-		delay(1000);
+		// delay(1000);
+		;
 }

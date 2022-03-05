@@ -28,6 +28,7 @@ class drawerForSettingState extends State<drawerForSetting> {
   BackgroundCollectingTask _collectingTask;
 
   bool _autoAcceptPairingRequests = false;
+  Color btn_color = Color(0xff6161F5);
 
   @override
   void initState() {
@@ -94,12 +95,16 @@ class drawerForSettingState extends State<drawerForSetting> {
       child: Container(
         width: width,
         height: height,
-        color: Colors.deepPurpleAccent,
+        color: btn_color,
         child: ListView(
           children: [
             Padding(padding: EdgeInsets.all(20)),
             SwitchListTile(
-              title: const Text('Enable Bluetooth'),
+              title: const Text('블루투스',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                )
+                                ),
               value: _bluetoothState.isEnabled,
               onChanged: (bool value) {
                 // Do the request and update with the true value then
@@ -117,10 +122,25 @@ class drawerForSettingState extends State<drawerForSetting> {
               },
             ),
             ListTile(
-              title: const Text('Bluetooth status'),
-              subtitle: Text(_bluetoothState.toString()),
+              title: const Text('블루투스 상태',
+                                style: TextStyle(
+                                fontWeight: FontWeight.bold,
+              )
+              ),
+              subtitle: Text(
+                (_bluetoothState == BluetoothState.STATE_ON) ? "연결" : 
+                  (_bluetoothState == BluetoothState.STATE_OFF) ? "끊김" :
+                  "모름"
+                ),
               trailing: ElevatedButton(
-                child: const Text('Settings'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffffffff),
+                ),
+                child: const Text('설정',
+                                  style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                ),
+                ),
                 onPressed: () {
                   FlutterBluetoothSerial.instance.openSettings();
                 },
@@ -128,7 +148,14 @@ class drawerForSettingState extends State<drawerForSetting> {
             ),
             ListTile(
               title: ElevatedButton(
-                child: const Text('Select OBD device'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffffffff),
+                ),
+                child: const Text('진단 장치 선택',
+                                  style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                ),
+                ),
                 onPressed: () async {
                   final BluetoothDevice selectedDevice =
                       await Navigator.of(context).push(
@@ -149,10 +176,23 @@ class drawerForSettingState extends State<drawerForSetting> {
               ),
             ),
             ListTile(
-              title: const Text('OBD Connectivity'),
-              subtitle: Text(info.getConnection.toString()),
+              title: const Text('진단 장치 연결 상태',
+                                style: TextStyle(
+                                fontWeight: FontWeight.bold,
+              ),
+              ),
+              subtitle: Text(
+                (info.getConnection.toString() == "null") ?
+                "연결 끊김" : "연결 중",
+                ),
               trailing: ElevatedButton(
-                child: const Text('Disconnect'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffffffff),
+                ),
+                child: const Text('연결 끊기',
+                                  style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                ),),
                 onPressed: () {
                   setState(() {
                     info.dispose();
@@ -162,7 +202,13 @@ class drawerForSettingState extends State<drawerForSetting> {
             ),
             ListTile(
               title: ElevatedButton(
-                child: const Text('Connect to paired device to chat'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffffffff),
+                ),
+                child: const Text('디버깅 모니터',
+                                  style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                ),),
                 onPressed: () async {
                   final BluetoothDevice selectedDevice =
                       await Navigator.of(context).push(
@@ -187,7 +233,6 @@ class drawerForSettingState extends State<drawerForSetting> {
       ),
     );
   }
-
 
   void _startChat(BuildContext context, BluetoothDevice server) {
     Navigator.of(context).push(

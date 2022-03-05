@@ -153,9 +153,9 @@ bool getSpeed(SoftwareSerial &_HC06) {
 ** Description	 : get battery
 *******************************************************************************************/
 bool getBattery(SoftwareSerial &_HC06) {
-	String pidName = "BATTERY_MAYBE";
+	String pidName = "BATTERY_CHARGE";
 
-	sendPid(BATTERY_MAYBE);
+	sendPid(BATTERY_CHARGE);
 	unsigned long timeout_ = millis();
 	int battery;
 

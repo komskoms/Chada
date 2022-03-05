@@ -6,6 +6,8 @@
 *******************************************************************************************/
 void SerialInit() {
 	Serial.begin(SERIAL_SPEED);
+	// while (!Serial)
+	// 	delay(1000);
 	Serial.println("Serial Init ok!");
 	Serial.println("--------------------------------");
 }

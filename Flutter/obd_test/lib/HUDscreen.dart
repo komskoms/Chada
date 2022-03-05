@@ -25,13 +25,11 @@ class _HUDdisplayState extends State<HUDdisplay> {
             child: PageView(
               children: [
                 showBox(context, orientation, "Speed", "VEHICLE_SPEED"),
-                // split05(context),
-                // split04(context),
-                // split03(context),
-                // split02(context),
               ],
             ),
-          )));
+          ),
+        ),
+      );
     });
   }
 

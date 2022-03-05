@@ -71,70 +71,52 @@ class _buildBodyState extends State<_buildBody> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    // if (showBottomMenu == true) {
     if (true) {
       return SafeArea(
-          child: Center(
-              child: Stack(
-        children: [
-          GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              setState(() {
-                showBottomMenu = false;
-              });
-            },
-            child:
-              Column(children: <Widget>[
-                mainUpper(context),
-                mainList(),
-              ]),
-            ),
-          AnimatedOpacity(
-            duration: Duration(milliseconds: 200),
-            opacity: (showBottomMenu) ? 1.0 : 0.0,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-              child: Container(
-                color: Colors.white.withOpacity(0.2),
+        child: Center(
+          child: Stack(
+            children: [
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    showBottomMenu = false;
+                  });
+                },
+                child: Column(children: <Widget>[
+                  mainUpper(context),
+                  mainList(),
+                ]),
               ),
-            ),
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: (showBottomMenu) ? 1.0 : 0.0,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+              ),
+              AnimatedPositioned(
+                curve: Curves.easeInOut,
+                duration: Duration(milliseconds: 200),
+                left: MediaQuery.of(context).size.width * 0.05,
+                bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+                child: drawerForSetting())
+            ],
           ),
-          AnimatedPositioned(
-              curve: Curves.easeInOut,
-              duration: Duration(milliseconds: 200),
-              left: MediaQuery.of(context).size.width * 0.05,
-              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-              child: drawerForSetting())
-        ],
-      )));
-    } else {
-      return SafeArea(
-          child: Center(
-              child: Stack(
-        children: [
-          Column(children: <Widget>[
-            mainUpper(context),
-            mainList(),
-          ]),
-          AnimatedPositioned(
-              curve: Curves.easeInOut,
-              duration: Duration(milliseconds: 200),
-              left: MediaQuery.of(context).size.width * 0.05,
-              bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-              child: drawerForSetting())
-        ],
-      )));
-    }
+        ),
+      );
+    } 
   }
 
   Widget mainUpper(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.3,
-        //color: Colors.red,
-        margin: EdgeInsets.only(top: 20, right: 20, left: 20),
-        child: Container(
-            child: Row(
+      height: MediaQuery.of(context).size.height * 0.3,
+      margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+      child: Container(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -145,19 +127,17 @@ class _buildBodyState extends State<_buildBody> {
               flex: 3,
               child: mainUpperRight(context),
             ),
-            // Expanded(
-            //   flex: 3,
-            //   child: mainSimpleInfo(context),
-            // ),
           ],
-        )));
+        ),
+      ),
+    );
   }
 
   Widget mainMenu(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
       primary: Color(0xff6161F5),
       minimumSize: Size(MediaQuery.of(context).size.width * 0.3,
-          MediaQuery.of(context).size.height * 0.3 * 0.17),
+                        MediaQuery.of(context).size.height * 0.3 * 0.17),
     );
 
     if (showMainMenu == false) {
@@ -181,60 +161,64 @@ class _buildBodyState extends State<_buildBody> {
         child: Column(
           children: [
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  setState(() {
-                    showMainMenu = false;
-                  });
-                },
-                child: Text(
-                  "닫 기",
-                  style: TextStyle(
-                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
-                )),
+              style: style,
+              onPressed: () {
+                setState(() {
+                  showMainMenu = false;
+                });
+              },
+              child: Text(
+                "닫 기",
+                style: TextStyle(
+                    color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                ),
+              ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.3 * 0.06,
             ),
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => diagnose()));
-                },
-                child: Text(
-                  "차량진단",
-                  style: TextStyle(
-                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
-                )),
+              style: style,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => diagnose()));
+              },
+              child: Text(
+                "차량진단",
+                style: TextStyle(
+                    color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                ),
+              ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.3 * 0.06,
             ),
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HUDdisplay()));
-                },
-                child: Text(
-                  "H U D",
-                  style: TextStyle(
-                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
-                )),
+              style: style,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HUDdisplay()));
+              },
+              child: Text(
+                "H U D",
+                style: TextStyle(
+                    color: Color(0xffefefef), fontWeight: FontWeight.bold),
+                ),
+              ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.3 * 0.06,
             ),
             ElevatedButton(
-                style: style,
-                onPressed: () {
-                  setState(() {
-                    showBottomMenu = (showBottomMenu) ? false : true;
-                  });
-                },
-                child: Text(
-                  "블루투스",
-                  style: TextStyle(
-                      color: Color(0xffefefef), fontWeight: FontWeight.bold),
-                )),
+              style: style,
+              onPressed: () {
+                setState(() {
+                  showBottomMenu = (showBottomMenu) ? false : true;
+                });
+              },
+              child: Text(
+                "블루투스",
+                style: TextStyle(
+                    color: Color(0xffefefef), fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       );
@@ -245,96 +229,15 @@ class _buildBodyState extends State<_buildBody> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3 * 0.95,
       margin: EdgeInsets.only(left: 30),
-      //color: Colors.blue,
-      // child: Row(
-      //   children: [
-      //     Expanded(
-      //       flex: 2,
-      //       child: mainCar(context),
-      //     ),
-      //     Expanded(
-      //       flex: 3,
       child: mainSimpleInfo(context),
-      //   ),
-      //],
-      //),
     );
   }
-
-  // Widget mainCar(BuildContext context) {
-  //   return Container(
-  //     //color: Colors.green,
-  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9,
-  //     child: Column(
-  //       mainAxisAlignment: MainAxisAlignment.end,
-  //       children: [
-  //         mainCarStatus(context),
-  //         mainSelector(context),
-  //     ]),
-  //     // decoration: BoxDecoration(
-  //     //     borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
-  //   );
-  // }
-
-  // Widget mainCarStatus(BuildContext context) {
-  //   return Container(
-  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.4,
-  //     margin: EdgeInsets.only(
-  //       bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05,
-  //       top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.05
-  //     ),
-  //     child: Column(
-  //       children: [
-  //         Container(
-  //           child: Text(
-  //             "My Car Status",
-  //             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Icon(
-  //             Icons.face_sharp,
-  //             size: 60,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget mainSelector(BuildContext context) {
-  //   return Container(
-  //     height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5,
-  //     padding: EdgeInsets.only(left: 25, right: 25),
-  //     // margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-  //     child: Column(
-  //       children: [
-  //         Container(
-  //           height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
-  //           padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
-  //           //margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.1,),
-  //           child: Text(
-  //             "Selected",
-  //             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //         Container(
-  //           height: MediaQuery.of(context).size.height * 0.3 * 0.9 * 0.5 * 0.4,
-  //           child: Image.asset(
-  //             'assets/images/1_speed.png',
-  //             fit: BoxFit.contain,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //     decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
-  //   );
-  // }
 
   Widget mainSimpleInfo(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3 * 0.9,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
       child: Column(
         children: [
           infoKeyValue(
@@ -347,8 +250,6 @@ class _buildBodyState extends State<_buildBody> {
               "${info.getValue[PidName.indexOf("FUEL_TANK_LEVEL_INPUT")]} %"),
         ],
       ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
     );
   }
 
@@ -358,24 +259,25 @@ class _buildBodyState extends State<_buildBody> {
       child: Row(
         children: [
           Expanded(
-              flex: 1,
-              child: Container(
-                child: Text(
-                  _key,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-                alignment: AlignmentDirectional(1.0, 0.25),
-              )),
+            flex: 1,
+            child: Container(
+              alignment: AlignmentDirectional(1.0, 0.25),
+              child: Text(
+                _key,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Container(
+              alignment: AlignmentDirectional(0.1, 0.25),
               child: Text(
                 _val,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.start,
               ),
-              alignment: AlignmentDirectional(0.1, 0.25),
             ),
           ),
         ],

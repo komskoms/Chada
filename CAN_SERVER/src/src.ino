@@ -2,6 +2,8 @@
 
 SoftwareSerial HC06(HC06_RX, HC06_TX);
 std::vector<Pair> pid_list;
+MCP_CAN CAN = MCP_CAN(SPI_CS_PIN);
+OBDPower obd = OBDPower(A3);
 
 /******************************************************************************************
 ** Function Name : setup
@@ -23,10 +25,11 @@ void setup() {
 void loop() {
 	if (HC06.available() > 0) {
 		String request = HC06.readStringUntil('\n');
-		std::string str = request.c_str();
-		Serial.println(request.c_str());
-		findPid(pid_list, str, HC06);
+		// std::string str = request.c_str();
+		Serial.println(request);
+		// findPid(pid_list, request.c_str(), HC06);
 	}
 	else
-		delay(1000);
+		// delay(1000);
+		;
 }

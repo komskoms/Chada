@@ -6,8 +6,8 @@
 *******************************************************************************************/
 void SerialInit() {
 	Serial.begin(SERIAL_SPEED);
-	while (!Serial)
-		delay(1000);
+	// while (!Serial)
+	// 	delay(1000);
 	Serial.println("Serial Init ok!");
 	Serial.println("--------------------------------");
 }
@@ -75,6 +75,7 @@ void initPidList(std::vector<Pair> &pid_list) {
 	str = "BATTERY";
 	inputPidList(pid_list, str, 164, getBattery);
 
+	// check right name
 	for (unsigned int i = 0; i < pid_list.size(); ++i)
 		std::cout << pid_list[i].getName() <<  std::endl;
 	Serial.println("Pid List Init ok!");

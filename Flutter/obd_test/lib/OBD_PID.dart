@@ -249,4 +249,5 @@ List<String> PidName = [
   /*
 	** 0x60 ~ 0x6F
 	*/
+  "BATTERY_CHARGE"
 ];

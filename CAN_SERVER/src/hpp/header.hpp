@@ -19,8 +19,8 @@
 #define HC06_RX             10
 #define ASSERT(a)			while (!a) ;
 
-extern MCP_CAN CAN(SPI_CS_PIN);
-extern OBDPower obd(A3);
+MCP_CAN CAN(SPI_CS_PIN);
+OBDPower obd(A3);
 
 /*
 ** init.cpp

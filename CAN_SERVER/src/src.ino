@@ -2,6 +2,8 @@
 
 SoftwareSerial HC06(HC06_RX, HC06_TX);
 std::vector<Pair> pid_list;
+MCP_CAN CAN = MCP_CAN(SPI_CS_PIN);
+OBDPower obd = OBDPower(A3);
 
 /******************************************************************************************
 ** Function Name : setup

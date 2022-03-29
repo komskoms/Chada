@@ -29,10 +29,10 @@ class carInfo {
   static BluetoothConnection _connection;
 
   static bool _connected = false;
-  static bool _scanning = false;
   static bool _disconnecting = false;
   static bool _sendQuery = false;
   static bool _promptReceived = false;
+  static bool _scanning = false;
 
   static List<_message> _messagesList = List<_message>.empty(growable: true);
   static List<String> _tempMessageList = List.empty(growable: true);
@@ -72,6 +72,7 @@ class carInfo {
       initialContact();
       // Send PID to OBD
       startScan(0);
+      // _scanning = true;
     }).catchError((error) {
       print('Cannot connect, exception occured');
       print(error);
@@ -117,6 +118,33 @@ class carInfo {
   ** Function Name : selectUnit
   ** Description	 : PIDname의 반환값에 맞는 적젏한 단위를 반환
   */
+  int convertUnit(int PID, int value) {
+    switch (PID) {
+      case 4:
+      case 17:
+      case 90:
+      case 91:
+        return (100 / 255 * value).round();
+      case 5:
+        return value - 40;
+      case 10:
+        return value * 3;
+      case 12:
+      case 92:
+        return (value / 4).round();
+      case 66:
+        return value * 1000;
+      case 94:
+        return (value / 20).round();
+      default:
+        return value;
+    }
+  }
+
+  /**
+  ** Function Name : selectUnit
+  ** Description	 : PIDname의 반환값에 맞는 적젏한 단위를 반환
+  */
   String selectUnit(String PIDname) {
     switch (PIDname) {
       case "ENGINE_SPEED":
@@ -129,7 +157,21 @@ class carInfo {
       case "THROTTLE_POSITION":
       case "CALCULATED_ENGINE_LOAD":
       case "FUEL_TANK_LEVEL_INPUT":
+      case "RELATIVE_ACCELERATOR_PEDAL_POSITTION":
+      case "HYBRID_BATTERY_PACK_REMAINING_LIFE":
         return "%";
+      case "RUN_TIME_SINCE_ENGINE_START":
+        return "sec";
+      case "FUEL_PRESSURE":
+        return "kPa";
+      case "ENGINE_FUEL_RATE":
+        return "L/h";
+      case "CONTROL_MODULE_VOLTAGE":
+        return "V";
+      case "DISTANCE_TRAVELED_WITH_MIL_ON":
+        return "km";
+      case "TIME_SINCE_TROUBLE_CODES_CLEARED":
+        return "min";
       default:
         return '';
     }
@@ -308,17 +350,17 @@ class carInfo {
     int val;
 
     // timeout이면 값을 수정하지 않음
-    print("token: ${msg.whom} ${msg.text}");
+    print("token: ${msg.whom}/ ${msg.text}");
     if (msg.text == "Timeout") {
       return msg;
     } else {
       val = int.parse(_trimMessage(msg.text), radix: 16);
+      print("token adf: ${val}");
     }
     int _pid = int.parse(msg.whom, radix: 16);
-    print("read: ${_pid}/${val}");
 
     if (_pid >= 0) {
-      _values[_pid] = val;
+      _values[_pid] = convertUnit(_pid, val);
     }
     // if (PidName.indexOf(msg.whom) == -1) {
     //   print("CommError: respond PID is not available");
@@ -361,6 +403,7 @@ class carInfo {
   get getValue => _values;
   get getScanFlag => _scanPID;
   get BAT_CHG => battery_charge;
+  get getScanning => _scanning;
 
   get getServer => _server;
   set setServer(BluetoothDevice server) => _server = server;

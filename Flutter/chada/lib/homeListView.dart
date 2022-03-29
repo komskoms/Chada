@@ -1,13 +1,19 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ChaDa/comms.dart';
 import 'OBD_PID.dart';
 import 'diagnose.dart';
-import 'bottomDrawer.dart';
 import 'HUDscreen.dart';
+
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'bluetooth/BackgroundCollectingTask.dart';
+import 'bluetooth/ChatPage.dart';
+import 'bluetooth/SelectBondedDevicePage.dart';
+
+part 'bottomDrawer.dart';
+
 
 class listItem {
   String imagePath;
@@ -39,7 +45,6 @@ class _buildBody extends StatefulWidget {
 }
 
 class _buildBodyState extends State<_buildBody> {
-
   carInfo info = carInfo();
   bool showMainMenu = true;
   bool showBottomMenu = false;
@@ -49,7 +54,11 @@ class _buildBodyState extends State<_buildBody> {
   void initState() {
     super.initState();
 
-    info.initialSwitch();
+    // info.initialSwitch();
+    Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+      });
+    });
     // Timer.periodic(Duration(seconds: 1), (timer) {
     //   setState(() {
     //     if (info.getServer != null) {
@@ -94,12 +103,11 @@ class _buildBodyState extends State<_buildBody> {
                 ),
               ),
               AnimatedPositioned(
-                curve: Curves.easeInOut,
-                duration: Duration(milliseconds: 200),
-                left: MediaQuery.of(context).size.width * 0.05,
-                bottom: (showBottomMenu) ? -(height * 0.4) : -height,
-                child: drawerForSetting()
-              ),
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: 200),
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  bottom: (showBottomMenu) ? -(height * 0.4) : -height,
+                  child: drawerForSetting()),
             ],
           ),
         ),
@@ -237,9 +245,8 @@ class _buildBodyState extends State<_buildBody> {
   }
 
   Widget mainSimpleInfo(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
+    return Column(children: [
+      Expanded(
           flex: 1,
           child: Container(
             child: Text(
@@ -247,7 +254,8 @@ class _buildBodyState extends State<_buildBody> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-              ),),
+              ),
+            ),
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
@@ -256,20 +264,21 @@ class _buildBodyState extends State<_buildBody> {
                 width: 1,
               ),
             ),
-          )
-        ),
-        Padding(padding: EdgeInsets.all(1)),
-        Expanded(
+          )),
+      Padding(padding: EdgeInsets.all(1)),
+      Expanded(
           flex: 6,
           child: Container(
             padding: EdgeInsets.only(bottom: 2, top: 2),
             // height: MediaQuery.of(context).size.height * 0.3 * 0.9,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Color(0xff6161F5)),
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xff6161F5)),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount:
-                  selectEasyMode == true ? pidGroupsEasy.length : pidGroups.length,
+              itemCount: selectEasyMode == true
+                  ? pidGroupsEasy.length
+                  : pidGroups.length,
               itemBuilder: (BuildContext context, int index) {
                 if (selectEasyMode == true) {
                   return pidGroupCardEasy(index);
@@ -278,10 +287,8 @@ class _buildBodyState extends State<_buildBody> {
                 }
               },
             ),
-          )
-        )
-      ]
-    );
+          ))
+    ]);
   }
 
   Widget pidGroupCardEasy(int index) {
@@ -367,40 +374,40 @@ class _buildBodyState extends State<_buildBody> {
   listItem toListItem(String pid) {
     switch (pid) {
       case "VEHICLE_SPEED":
-        return listItem("1_speed", "SPEED", "VEHICLE_SPEED");
+        return listItem("1_speed", "속도", "VEHICLE_SPEED");
       case "ENGINE_SPEED":
-        return listItem("2_engine", "Engine Speed", "ENGINE_SPEED");
+        return listItem("2_engine", "엔진 회전수", "ENGINE_SPEED");
       case "CONTROL_MODULE_VOLTAGE":
         return listItem(
-            "3_battery", "Bettery Voltage", "CONTROL_MODULE_VOLTAGE");
+            "3_battery", "배터리 전압", "CONTROL_MODULE_VOLTAGE");
       case "RELATIVE_ACCELERATOR_PEDAL_POSITTION":
-        return listItem("4_accelerate", "Accel Position",
+        return listItem("4_accelerate", "엑셀러레이터",
             "RELATIVE_ACCELERATOR_PEDAL_POSITTION");
       case "THROTTLE_POSITION":
-        return listItem("4_accelerate", "Throttle", "THROTTLE_POSITION");
+        return listItem("4_accelerate", "쓰로틀", "THROTTLE_POSITION");
       case "ENGINE_COOLANT_TEMPERATURE":
         return listItem(
-            "2_engine", "Coolant Temp", "ENGINE_COOLANT_TEMPERATURE");
+            "2_engine", "냉각수 온도", "ENGINE_COOLANT_TEMPERATURE");
       case "CALCULATED_ENGINE_LOAD":
-        return listItem("2_engine", "Engine Load", "CALCULATED_ENGINE_LOAD");
+        return listItem("2_engine", "엔진 부하", "CALCULATED_ENGINE_LOAD");
       case "FUEL_TANK_LEVEL_INPUT":
-        return listItem("2_engine", "Fuel Level", "FUEL_TANK_LEVEL_INPUT");
+        return listItem("2_engine", "연료 잔량", "FUEL_TANK_LEVEL_INPUT");
       case "RUN_TIME_SINCE_ENGINE_START":
         return listItem(
-            "2_engine", "Engine Run Time", "RUN_TIME_SINCE_ENGINE_START");
+            "2_engine", "엔진 시동 경과시간", "RUN_TIME_SINCE_ENGINE_START");
       case "HYBRID_BATTERY_PACK_REMAINING_LIFE":
-        return listItem("3_battery", "Battery Life ( for hybrid )",
+        return listItem("3_battery", "배터리 수명 ( 하이브리드 용 )",
             "HYBRID_BATTERY_PACK_REMAINING_LIFE");
       case "FUEL_PRESSURE":
-        return listItem("2_engine", "Fuel Pressure", "FUEL_PRESSURE");
+        return listItem("2_engine", "연료 압력", "FUEL_PRESSURE");
       case "ENGINE_FUEL_RATE":
-        return listItem("2_engine", "Fuel Rate", "ENGINE_FUEL_RATE");
+        return listItem("2_engine", "연료 효율", "ENGINE_FUEL_RATE");
       case "DISTANCE_TRAVELED_WITH_MIL_ON":
         return listItem(
-            "2_engine", "Dist MIL On", "DISTANCE_TRAVELED_WITH_MIL_ON");
+            "2_engine", "경고등 점등 후 이동거리", "DISTANCE_TRAVELED_WITH_MIL_ON");
       case "TIME_SINCE_TROUBLE_CODES_CLEARED":
         return listItem(
-            "2_engine", "Time DTC Cleared", "TIME_SINCE_TROUBLE_CODES_CLEARED");
+            "2_engine", "경고 초기화 경과시간", "TIME_SINCE_TROUBLE_CODES_CLEARED");
       default:
         return listItem("2_engine", pid, pid);
     }

@@ -1,13 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:ChaDa/comms.dart';
-
-import 'bluetooth/BackgroundCollectingTask.dart';
-import 'bluetooth/ChatPage.dart';
-import 'bluetooth/SelectBondedDevicePage.dart';
+part of 'homeListView.dart';
 
 class drawerForSetting extends StatefulWidget {
   drawerForSetting({Key key}) : super(key: key);

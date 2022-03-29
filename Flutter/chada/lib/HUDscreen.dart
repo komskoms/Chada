@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'OBD_PID.dart';
@@ -11,15 +12,24 @@ class HUDdisplay extends StatefulWidget {
 
 class _HUDdisplayState extends State<HUDdisplay> {
   @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double witdh = MediaQuery.of(context).size.width;
 
     return OrientationBuilder(builder: (context, orientation) {
       return GestureDetector(
-          onDoubleTap: () => Navigator.pop(context),
-          child: Scaffold(
-              body: Transform(
+        onDoubleTap: () => Navigator.pop(context),
+        child: Scaffold(
+          body: Transform(
             alignment: Alignment.center,
             transform: Matrix4.rotationY(math.pi),
             child: PageView(
@@ -38,40 +48,40 @@ class _HUDdisplayState extends State<HUDdisplay> {
     carInfo info = carInfo();
 
     return Container(
-      color: Colors.black,
+        color: Colors.black,
         child: Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
-          alignment: Alignment.topLeft,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Color(0xff6161F5),
-              width: 1,
+          children: [
+            Container(
+              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
+              alignment: Alignment.topLeft,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Color(0xff6161F5),
+                  width: 1,
+                ),
+              ),
+              child: Text(
+                "$title",
+                style: TextStyle(
+                  // fontSize: MediaQuery.of(context).size.height * 0.3,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.start,
+              ),
             ),
-          ),
-          child: Text(
-            "$title",
-            style: TextStyle(
-              // fontSize: MediaQuery.of(context).size.height * 0.3,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.start,
-          ),
-        ),
-        Container(
-            child: Text(
-          "${info.getValue[PidName.indexOf(PIDname)]}",
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.height * 0.3,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.start,
-        )),
-        Container(child: Text("${info.selectUnit(PIDname)}")),
-      ],
-    ));
+            Container(
+                child: Text(
+              "${info.getValue[PidName.indexOf(PIDname)]}",
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.3,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            )),
+            Container(child: Text("${info.selectUnit(PIDname)}")),
+          ],
+        ));
   }
 // 5분할 화면
 

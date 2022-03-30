@@ -18,8 +18,6 @@ class drawerForSettingState extends State<drawerForSetting> {
   Timer _discoverableTimeoutTimer;
   int _discoverableTimeoutSecondsLeft = 0;
 
-  BackgroundCollectingTask _collectingTask;
-
   bool _autoAcceptPairingRequests = false;
   Color btn_color = Color(0xff6161F5);
 
@@ -73,7 +71,6 @@ class drawerForSettingState extends State<drawerForSetting> {
   @override
   void dispose() {
     FlutterBluetoothSerial.instance.setPairingRequestHandler(null);
-    _collectingTask?.dispose();
     _discoverableTimeoutTimer?.cancel();
     super.dispose();
   }

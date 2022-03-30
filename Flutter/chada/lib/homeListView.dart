@@ -8,7 +8,6 @@ import 'diagnose.dart';
 import 'HUDscreen.dart';
 
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'bluetooth/BackgroundCollectingTask.dart';
 import 'bluetooth/ChatPage.dart';
 import 'bluetooth/SelectBondedDevicePage.dart';
 

@@ -3,5 +3,6 @@
         "cstddef": "cpp",
         "stdexcept": "cpp",
         "string": "cpp"
-    }
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
